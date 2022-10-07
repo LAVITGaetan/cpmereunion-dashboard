@@ -1,0 +1,35 @@
+<%- include('../includes/header.ejs') %>
+    <%- include('../includes/navbar.ejs') %>
+
+
+        <div class="profil">
+            <div class="container">
+                <div class="container-header">
+                    <%= sondage.nom %>
+                </div>
+                <div class="container-row"><span class="row-label">Titre du sondage : </span>
+                    <%= sondage.titre %>
+                </div>
+                <div class="container-row"><span class="row-label">Nombre de réponses</span>
+                    <%= reponses.length %>
+                </div>
+                <div class="container-row"><span class="row-label">Parution</span>
+                    <%= sondage.parution %>
+                </div>
+                <div class="flex">
+                    <div class="container-action"><a href="/edit-sondage?id=<%= sondage._id %>"
+                            class="container-cta no-decoration">Editer le formulaire</a></div>
+                    <div class="container-delete">
+                        <div class="container-ctd" data-message="Sondage supprimé, cliquez sur le bouton pour revenir aux sondages" data-redirection="/sondages" data-ressource="sondages/<%= sondage._id %>" onclick="deleteRessource(this)">Supprimer</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    <%- include('../includes/succes.ejs') %>
+</body>
+
+        <script src="js/index.js"></script>
+        <script src="js/api.js"></script>
+
+        </html>

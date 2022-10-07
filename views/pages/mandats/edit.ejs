@@ -1,0 +1,100 @@
+<%- include('../includes/header.ejs') %>
+
+
+    <body>
+        <%- include('../includes/navbar.ejs') %>
+            <div class="content">
+                <h1 class="title">Modifier un adhérent</h1>
+                <div class="form-container">
+                    <form action="/mandats/edit/<%=mandat._id%>" id="add-form" class="form-flex" enctype="multipart/form-data" method="POST">
+                        <div class="form-group">
+                            <label for="label" class="form-label">Logo</label>
+                            <% if (mandat.logo !=='' ) { %>
+                                <img style="margin: 0 0 1em 5%;" class="profil-image" width="128px" height="128px"
+                                    src="<%= mandat.logo %>" alt="" class="profil-logo">
+                                <% } else { %>
+                                    <img style="margin-left: 5%;" class="profil-image" width="48px" height="48px"
+                                        src="img/add-photo.png" alt="" class="profil-logo">
+                                    <% } %>
+                                        <input type="file" name="mandatLogo">
+                            <input value="<%= mandat.logo %>" required name="logo" id="logo"
+                                type="text" class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-group">
+                            <label for="label" class="form-label">Label</label>
+                            <input value="<%= mandat.label %>" id="label" required type="text" name="label"
+                                class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-group">
+                            <label for="categorie" class="form-label">Catégorie</label>
+                            <select required name="categorie" id="categorie" class="form-select">
+                                <option value="">Choisir une categorie</option>
+                                <option <% if (mandat.categorie==='artisanat' ) { %>
+                                    <%= 'selected' %>
+                                        <% } %> value="artisanat">Artisanat
+                                </option>
+                                <option <% if (mandat.categorie==='efj' ) { %>
+                                    <%= 'selected' %>
+                                        <% } %> value="efj">EFJ
+                                </option>
+                                <option <% if (mandat.categorie==='eni' ) { %>
+                                    <%= 'selected' %>
+                                        <% } %> value="eni">ENI
+                                </option>
+                                <option <% if (mandat.categorie==='ouverture-regionale' ) { %>
+                                    <%= 'selected' %>
+                                        <% } %> value="ouverture-regionale">Ouverture Régionale
+                                </option>
+                                <option <% if (mandat.categorie==='pe-at' ) { %>
+                                    <%= 'selected' %>
+                                        <% } %> value="pe-at">PE-AT
+                                </option>
+                                <option <% if (mandat.categorie==='social' ) { %>
+                                    <%= 'selected' %>
+                                        <% } %> value="social">Social
+                                </option>
+                                <option <% if (mandat.categorie==='services' ) { %>
+                                    <%= 'selected' %>
+                                        <% } %> value="services">Services
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="activite" class="form-label">Nom</label>
+                            <input value="<%= mandat.nom %>" id="nom" required type="text" name="nom"
+                                class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-group">
+                            <label for="mission" class="form-label">Mission</label>
+                            <input value="<%= mandat.mission %>" id="mission" required type="text" name="mission"
+                                class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-group">
+                            <label for="composition" class="form-label">Composition du représentant</label>
+                            <input value="<%= mandat.composition %>" id="composition" required type="text" name="composition"
+                                class="form-input" placeholder="Réponse">
+                        </div>
+                        <input type="hidden" name="id" id="id" value="<%= mandat._id%>">
+                        <div class="form-group">
+                            <label for="renouvellement" class="form-label">Renouvellement</label>
+                            <input value="<%= mandat.renouvellement %>" id="renouvellement" required type="text" name="renouvellement"
+                                class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-group">
+                            <label for="duree" class="form-label">Durée</label>
+                            <input value="<%= mandat.duree %>" id="duree" required type="text" name="duree"
+                                class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-action">
+                            <button type="submit" class="cta">Modifier</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <%- include('../includes/succes.ejs') %>
+
+    </body>
+<script src="js/api.js"></script>
+    <script src="js/index.js"></script>
+
+    </html>

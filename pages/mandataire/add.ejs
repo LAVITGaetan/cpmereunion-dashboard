@@ -1,0 +1,38 @@
+<%- include('../includes/header.ejs') %>
+
+
+    <body>
+        <%- include('../includes/navbar.ejs') %>
+            <div class="content">
+                <h1 class="title">Ajouter un mandataire</h1>
+                <div class="form-container">
+                    <form data-redirection="/mandataires" data-message="Mandataire ajouté, cliquez sur le bouton pour revenir à la page des mandataires" data-ressource="mandataires" onsubmit="postForm(event)" id="add-form" class="form-flex" enctype="multipart/form-data" method="POST">
+                        <div class="form-group">
+                            <label for="image" class="form-label">Url du portrait</label>
+                            <input type="file" class="file-input" name="mandataireLogo">
+                        </div>
+                        <div class="form-group">
+                            <label for="nom" class="form-label">Nom</label>
+                            <input required type="text" name="nom" class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-group">
+                            <label for="prenom" class="form-label">Prénom</label>
+                            <input required type="text" name="prenom" class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="form-label">Description</label>
+                            <input required type="text" name="description" class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-action">
+                            <input type="submit" class="cta" value="Confirmer la création">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <%- include('../includes/succes.ejs') %>
+
+    </body>
+    <script src="js/api.js"></script>
+    <script src="/js/index.js"></script>
+
+    </html>

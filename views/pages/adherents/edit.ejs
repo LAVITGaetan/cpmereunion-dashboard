@@ -1,0 +1,107 @@
+<%- include('../includes/header.ejs') %>
+
+
+    <body>
+        <%- include('../includes/navbar.ejs') %>
+            <div class="content">
+                <h1 class="title">Modifier un adhérent</h1>
+                <div class="form-container">
+                    <form action="/adherents/edit/<%=adherent._id%>" id="add-form" class="form-flex" enctype="multipart/form-data" method="POST">
+                        <div class="form-group">
+                            <label for="image" class="form-label">Logo de l' entreprise</label>
+                            <% if (adherent.logo !=='' ) { %>
+                                <img style="margin: 0 0 1em 5%;" class="profil-image" width="128px" height="128px"
+                                    src="<%= adherent.logo %>" alt="" class="profil-logo">
+                                <% } else { %>
+                                    <img style="margin-left: 5%;" class="profil-image" width="48px" height="48px"
+                                        src="img/add-photo.png" alt="" class="profil-logo">
+                                    <% } %>
+                                        <input type="file" name="adherentLogo">
+                        </div>
+                        <div class="form-group">
+                            <label for="entreprise" class="form-label">Raison Sociale</label>
+                            <input value="<%= adherent.entreprise %>" required name="entreprise" id="entreprise"
+                                type="text" class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-group">
+                            <label for="section" class="form-label">Section</label>
+                            <select required name="section" id="section" class="form-select">
+                                <option value="">Choisir une section</option>
+                                <option <% if (adherent.section==='artisanat' ) { %>
+                                    <%= 'selected' %>
+                                        <% } %> value="artisanat">Artisanat
+                                </option>
+                                <option <% if (adherent.section==='commerce' ) { %>
+                                    <%= 'selected' %>
+                                        <% } %> value="commerce">Commerce
+                                </option>
+                                <option <% if (adherent.section==='industrie' ) { %>
+                                    <%= 'selected' %>
+                                        <% } %> value="industrie">Industrie
+                                </option>
+                                <option <% if (adherent.section==='services' ) { %>
+                                    <%= 'selected' %>
+                                        <% } %> value="services">Services
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="activite" class="form-label">Activité de l' entreprise</label>
+                            <input value="<%= adherent.activite %>" id="activite" required type="text" name="activite"
+                                class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-group">
+                            <label for="adresse" class="form-label">Adresse de l' entreprise</label>
+                            <input value="<%= adherent.adresse %>" id="adresse" required type="text" name="adresse"
+                                class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-group">
+                            <label for="nom" class="form-label">Nom du représentant</label>
+                            <input value="<%= adherent.nom %>" id="nom" required type="text" name="nom"
+                                class="form-input" placeholder="Réponse">
+                        </div>
+                        <input type="hidden" name="id" id="id" value="<%= adherent._id%>">
+                        <div class="form-group">
+                            <label for="prenom" class="form-label">Prénom du représentant</label>
+                            <input value="<%= adherent.prenom %>" id="prenom" required type="text" name="prenom"
+                                class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Adresse E-mail</label>
+                            <input value="<%= adherent.email %>" id="email" required type="text" name="email"
+                                class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-group">
+                            <label for="telephone" class="form-label">Numéro de téléphone</label>
+                            <input value="<%= adherent.telephone %>" id="telephone" required type="text"
+                                name="telephone" class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-group">
+                            <label for="identifiant" class="form-label">Mot de passe</label>
+                            <div class="generate-field">
+                                <input value="<%= adherent.identifiant %>" required maxlength="5" id="identifiant"
+                                    type="text" id="identifiant" name="identifiant" class="form-input"
+                                    placeholder="Réponse">
+                                <div class="generate" onclick="generateCode()"></div>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="siteweb" class="form-label">Site web</label>
+                            <input value="<%= adherent.siteweb %>" type="text" name="siteweb" id="siteweb"
+                                class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-action">
+                            <button type="submit" class="cta">Modifier</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <%- include('../includes/succes.ejs') %>
+
+    </body>
+    <script src="js/api.js"></script>
+
+    <script src="/js/index.js"></script>
+
+    </html>

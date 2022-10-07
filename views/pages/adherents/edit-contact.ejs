@@ -1,0 +1,46 @@
+<%- include('../includes/header.ejs') %>
+
+
+    <body>
+        <%- include('../includes/navbar.ejs') %>
+            <div class="content">
+                <h1 class="title">Modifier un contact</h1>
+                <div class="form-container">
+                    <form action="/contacts/edit/<%=contact._id%>" enctype="application/x-www-form-urlencoded" id="add-form" class="form-flex"
+                        method="POST" onsubmit="editContact(event)">
+                        <input type="hidden" value="<%=adherent._id%>" name="id_adherent">
+                        <div class="form-group">
+                            <label for="titre" class="form-label">Titre du contact</label>
+                            <input value="<%=contact.titre%>" required type="text" name="titre" id="titre" class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-group">
+                            <label for="nom" class="form-label">Nom du contact</label>
+                            <input value="<%=contact.nom%>" required type="text" name="nom" id="nom" class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-group">
+                            <label for="prenom" class="form-label">Prénom du contact</label>
+                            <input value="<%=contact.prenom%>" required type="text" name="prenom" id="prenom" class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Adresse E-mail</label>
+                            <input value="<%=contact.email%>" required type="text" name="email" id="email" class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-group">
+                            <label for="telephone" class="form-label">Numéro de téléphone</label>
+                            <input value="<%=contact.telephone%>" required type="text" name="telephone" id="telephone" class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-group">
+                            <label for="linkedin" class="form-label">Linkedin</label>
+                            <input value="<%=contact.linkedin%>" name="linkedin" type="text" id="linkedin" class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-action">
+                            <input type="submit" class="cta" value="Confirmer la création">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <%- include('../includes/succes.ejs') %>
+
+
+    </body>
+    </html>

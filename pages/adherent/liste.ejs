@@ -1,0 +1,97 @@
+<%- include('../includes/header.ejs') %>
+
+
+    <body>
+        <%- include('../includes/navbar.ejs') %>
+            <div class="content">
+<h1 class="header-title">Liste des adhérents</h1>
+            <div class="flex-between">
+                <div class="searchbox">
+                    <input class="searchbox-input" type="text" placeholder="Recherche" onkeyup="searchAdherent()"
+                        id="search"></input>
+                    <div onclick="searchAdherent()" class="searchbox-action"><img width="20px" height="20px"
+                            src="/img/search.png" alt="search"></div>
+                </div>
+                <a href="/add-adherent" class="cta">Nouvel adhérent</a>
+            </div>
+
+            <div class="filter">
+                <div class="filter-item filter-selected" onclick="changeFilter(0)">Tous</div>
+                <div class="filter-item" onclick="changeFilter(1)">Artisanat</div>
+                <div class="filter-item" onclick="changeFilter(2)">Commerce</div>
+                <div class="filter-item" onclick="changeFilter(3)">Industrie</div>
+                <div class="filter-item" onclick="changeFilter(4)">Services</div>
+            </div>
+
+            <div class="flex">
+                <div class="search-result"><span id="js-result"><%= adherents.length %></span> résultats trouvés</div>
+                <% adherents.forEach(adherent=> { %>
+                    <div class="adherent card">
+                        <div class="card-header"></div>
+                        <div class="card-figure">
+                            <% if (adherent.logo ) { %>
+                                <img class="card-image" src="<%= adherent.logo %>">
+                                <% }else{ %>
+                                    <img class="add-photo" width="24px" height="24px" src="img/no-photo.png">
+                                    <% } %>
+
+                        </div>
+                        <div class="card-title js-entreprise">
+                            <%= adherent.entreprise %>
+                        </div>
+                        <div class="card-subtitle js-section">
+                            <%= adherent.section %>
+                        </div>
+                        <a href="/profil-adherent?id=<%= adherent._id %>" class="no-decoration card-edit">
+                            <img src="img/edit.png" width="12px" height="12px" alt="edit">
+                        </a>
+                        <div data-message="Adhérent supprimé, cliquez sur le bouton pour raffraichir la page" data-redirection="/adherents" data-ressource="adherents/<%= adherent._id %>" onclick="deleteRessource(this)" class="card-delete">
+                            <img src="img/delete.png" width="12px" height="12px" alt="delete">
+                        </div>
+                    </div>
+                    <% }) %>
+
+            </div>
+            </div>
+            
+            <%- include('../includes/succes.ejs') %>
+    </body>
+    <script>
+        function changeFilter(id) {
+            document.getElementsByClassName('filter-selected')[0].classList.remove('filter-selected');
+            document.getElementsByClassName('filter-item')[id].classList.add('filter-selected');
+            searchAdherent();
+        }
+
+        function searchAdherent() {
+            let result_count = 0;
+            let query = document.getElementById('search').value.toLowerCase();
+            let item = document.getElementsByClassName('adherent');
+            let length = item.length;
+            let filter = document.getElementsByClassName('filter-selected')[0].innerHTML.toLowerCase();
+            for (let i = 0; i < length; i++) {
+                let entreprise = item[i].getElementsByClassName('js-entreprise')[0].innerHTML.toLowerCase();
+                let section = item[i].getElementsByClassName('js-section')[0].innerHTML.toLowerCase();
+                if (filter === "tous" || filter === section.replace(/\s/g, '')) {
+                    if (entreprise.includes(query)) {
+                        item[i].style.display = 'table-row';
+                        console.log('item matched');
+                        result_count ++;
+                    }
+                    else {
+                        item[i].style.display = 'none';
+                        console.log('item hidden by query');
+                    }
+                } else {
+                    item[i].style.display = 'none';
+                    console.log('item hidden by section');
+                }
+
+            }
+            document.getElementById('js-result').innerHTML = result_count
+        }
+    </script>
+    <script src="/js/api.js"></script>
+    <script src="/js/index.js"></script>
+
+    </html>

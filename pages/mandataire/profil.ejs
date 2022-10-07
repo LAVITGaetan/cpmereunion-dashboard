@@ -1,0 +1,176 @@
+<%- include('../includes/header.ejs') %>
+    <%- include('../includes/navbar.ejs') %>
+
+        <div class="layout">
+            <div class="layout-content">
+                <div class="profil">
+                    <div class="container">
+                        <div class="container-header">Informations générales</div>
+                        <% if (mandataire.logo !=='' ) { %>
+                            <img style="margin: 0 0 1em 5%;" class="profil-image" width="128px" height="128px"
+                                src="<%= mandataire.logo %>" alt="" class="profil-logo">
+                            <% } else { %>
+                                <img style="margin-left: 5%;" class="profil-image" width="48px" height="48px"
+                                    src="img/add-photo.png" alt="" class="profil-logo">
+                                <% } %>
+                                    <div class="container-row"><span class="row-label">Nom :
+                                        </span>
+                                        <%= mandataire.nom %>
+                                    </div>
+                                    <div class="container-row"><span class="row-label">Prénom :
+                                        </span>
+                                        <%= mandataire.prenom %>
+                                    </div>
+                                    <div class="container-row"><span class="row-label">Nombre de mandats :
+                                        </span>
+                                        <%= representations.filter(el=> el.id_mandataire === mandataire._id).length %>
+                                            Mandats
+                                    </div>
+                                    <div class="container-row"><span class="row-label">Description :
+                                        </span>
+                                        <%= mandataire.description %>
+                                    </div>
+                                    <!-- Modifier un mandataire -->
+                                    <div class="flex">
+                                        <a href="/edit-mandataire?id=<%= mandataire._id %>"
+                                            class="container-action no-decoration">
+                                            <div class="container-cta">Modifier</div>
+                                        </a>
+                                        <div data-message="Mandataire supprimé, cliquez sur le bouton pour retourner à la page des mandataires"
+                                            data-redirection="/mandataires"
+                                            data-ressource="mandataires/<%= mandataire._id %>/representations"
+                                            onclick="deleteRessource(this)" class="container-delete">
+                                            <div class="container-ctd">Supprimer</div>
+                                        </div>
+                                    </div>
+
+                    </div>
+
+                    <div class="container">
+                        <div class="container-header">Liste des mandats associés</div>
+                        <% if (representations.filter(el=> el.id_mandataire === mandataire._id).length > 0) { %>
+                            <% representations.filter(el=> el.id_mandataire === mandataire._id).forEach(representation=> { %>
+                                <div class="representation-card">
+                                    <div class="representation-content">
+                                        <div class="card-representation-figure">
+                                            <img width="64px" height="64px"
+                                                src="<%=mandats.find(el => el._id === representation.id_mandat).logo%>"
+                                                alt="">
+                                        </div>
+                                        <div class="representation-text">
+                                            <p class="representation-title">
+                                                <%= mandats.find(el=> el._id === representation.id_mandat).label %>
+                                            </p>
+                                            <p class="representation-subtitle">
+                                                <%= representation.titre %>
+                                            </p>
+                                        </div>
+
+                                        <div class="representation-options">
+                                            <div style="margin-bottom: 12px;"
+                                                data-redirection="profil-mandataire?id=<%=mandataire._id%>" 
+                                                data-message="Représentation supprimée, cliquez sur le bouton pour raffraîchir la page" 
+                                                data-ressource="representations/<%= representation._id %>"
+                                                onclick="deleteRessource(this)"
+                                                onclick="deleteRessource('representations/<%= representation._id %>')"
+                                                class="card-representation-action"><img src="img/chat.png" width="24px"
+                                                    height="24px" alt="delete">
+                                            </div>
+                                            <div onclick="showModalRepresentation('<%= representation._id %>', '<%=representation.titre %>')"
+                                                class="card-representation-action"><img src="img/edit-cta.png"
+                                                    width="24px" height="24px" alt="edit">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }) %>
+                                    <% } %>
+                                        <div class="card-representation-add">
+                                            <div class="card-representation-title">Lier un nouveau
+                                                mandat</div>
+                                            <form onsubmit="newRepresentation(event, '<%= mandataire._id %>')">
+                                                <select class="card-representation-input" name="mandat" id="mandat">
+                                                    <option value="">Sélectionner un mandataire</option>
+                                                    <% mandats.forEach(mandat=> { %>
+                                                        <option value="<%= mandat._id %>">
+                                                            <%= mandat.label %>
+                                                        </option>
+                                                        <% }) %>
+                                                </select>
+                                                <input class="card-representation-input" type="text" placeholder="Rôle"
+                                                    id="titre">
+                                                <input type="submit" class="card-representation-cta"
+                                                    value="Assigner un mandat">
+                                            </form>
+                                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal">
+            <div class="modal-title">Modifier une représentation</div>
+            <div class="modal-content">
+                <label for="titre" class="modal-label">Nouveau titre</label>
+                <input id="input-titre" class="modal-input">
+            </div>
+            <div class="modal-actions">
+                <div class="modal-save" id="modal-submit" onclick="editRepresentation()">Confirmer</div>
+                <div class="modal-close" onclick="closeModal()">Fermer</div>
+            </div>
+        </div>
+        <%- include('../includes/succes.ejs') %>
+            </body>
+            <script>
+                function editRepresentation(id) {
+                    let representation = {
+                        titre: document.getElementById('input-titre').value
+                    }
+                    try {
+                        fetch(`https://cpme-rest-api.herokuapp.com/api/representations/${id}`, {
+                            method: "PATCH",
+                            headers: {
+                                'Content-type': 'application/json'
+                            },
+                            body: JSON.stringify(representation)
+                        })
+                        let message = 'Représentation modifiée, cliquez pour raffraîchir la page';
+                        let redirecton = `profil-mandataire?id=<%=mandataire._id%>`;
+                        closeModalRepresentation();
+                        showModalSucces(message, redirecton);
+                    } catch (error) {
+                        console.log(error.message);
+                        alert('Seems baddd')
+                    }
+                }
+
+
+                function newRepresentation(event, id) {
+                    event.preventDefault();
+                    let select = document.getElementById('mandat');
+                    let id_mandat = select.options[select.selectedIndex].value;
+                    let representation = {
+                        id_mandat: id_mandat,
+                        id_mandataire: id,
+                        titre: document.getElementById('titre').value,
+                    }
+                    try {
+                        fetch(`https://cpme-rest-api.herokuapp.com/api/representations`, {
+                            method: "POST",
+                            headers: {
+                                'Content-type': 'application/json'
+                            },
+                            body: JSON.stringify(representation)
+                        })
+                        let message = 'Représentation ajoutée, cliquez pour raffraîchir la page';
+                        let redirecton = `profil-mandataire?id=<%=mandataire._id%>`;
+                        showModalSucces(message, redirecton);
+                    } catch (error) {
+                        console.log(error.message);
+                        alert('Une erreur est survenue')
+                    }
+                }
+            </script>
+            <script src="js/index.js"></script>
+            <script src="js/api.js"></script>
+
+            </html>

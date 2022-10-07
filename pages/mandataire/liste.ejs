@@ -1,0 +1,73 @@
+<%- include('../includes/header.ejs') %>
+
+
+    <body>
+        <%- include('../includes/navbar.ejs') %>
+            <div class="content">
+<h1 class="header-title">Liste des mandataires</h1>
+            <div class="flex-between">
+                <div class="searchbox">
+                    <input class="searchbox-input" type="text" placeholder="Recherche" onkeyup="searchMandataire()"
+                        id="search"></input>
+                    <div onclick="searchMandataire()" class="searchbox-action"><img width="20px" height="20px"
+                            src="/img/search.png" alt="search"></div>
+                </div>
+                <a href="/add-mandataire" class="cta">Nouveau mandataire</a>
+            </div>
+            <div class="flex">
+                <div class="search-result"><span id="js-result"><%= mandataires.length %></span> résultats trouvés</div>
+                <% mandataires.forEach(mandataire=> { %>
+                    <div class="mandataire card">
+                        <div class="card-header"></div>
+                        <div class="card-figure">
+                            <% if (mandataire.logo ) { %>
+                                <img class="card-image" src="<%= mandataire.logo %>">
+                                <% }else{ %>
+                                    <img class="add-photo" width="24px" height="24px" src="img/no-photo.png">
+                                    <% } %>
+                        </div>
+                        <div class="card-title js-identite">
+                            <%= mandataire.nom %>
+                            <%= mandataire.prenom %>
+                        </div>
+                        <div class="card-subtitle">
+                            <%= representations.filter(el => el.id_mandataire === mandataire._id).length %> Mandats
+                        </div>
+                        <a href="/profil-mandataire?id=<%= mandataire._id %>" class="no-decoration card-edit">
+                            <img src="img/edit.png" width="12px" height="12px" alt="edit">
+                        </a>
+                        <div class="card-delete" data-message="Mandataire supprimé, cliquez sur le bouton pour raffraichir la page" data-redirection="/mandataires" data-ressource="mandataires/<%= mandataire._id %>/representations" onclick="deleteRessource(this)">
+                            <img src="img/delete.png" width="12px" height="12px" alt="delete">
+                        </div>
+                    </div>
+                    <% }) %>
+
+            </div>
+            </div>
+            <%- include('../includes/succes.ejs') %>
+            
+    </body>
+    <script>
+        function searchMandataire() {
+            let result_count = 0;
+            let query = document.getElementById('search').value.toLowerCase();
+            let item = document.getElementsByClassName('mandataire');
+            let length = item.length;
+            for (let i = 0; i < length; i++) {
+                let identite = item[i].getElementsByClassName('js-identite')[0].innerHTML.toLowerCase();
+                    if (identite.includes(query)) {
+                        item[i].style.display = 'table-row';
+                        result_count ++;
+                    }
+                    else {
+                        item[i].style.display = 'none';
+                    }
+
+            }
+            document.getElementById('js-result').innerHTML = result_count
+        }
+    </script>
+    <script src="js/api.js"></script>
+    <script src="js/index.js"></script>
+
+    </html>

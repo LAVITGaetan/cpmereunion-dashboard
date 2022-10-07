@@ -1,0 +1,52 @@
+<%- include('../includes/header.ejs') %>
+
+
+    <body>
+        <%- include('../includes/navbar.ejs') %>
+            <div class="content">
+                <h1 class="title">Modifier un adhérent</h1>
+                <div class="form-container">
+                    <form data-redirection="/profil-mandataire?id=<%=mandataire._id%>" data-message="Mandataire modifié, cliquez sur le bouton pour revenir au profil" data-ressource="mandataires/<%=mandataire._id%>" onsubmit="patchForm(event)" id="add-form"
+                        class="form-flex" enctype="multipart/form-data" method="POST">
+                        <div class="form-group">
+                            <label for="logo" class="form-label">Image</label>
+                            <% if (mandataire.logo !=='' ) { %>
+                                <img style="margin: 0 0 1em 5%;" class="profil-image" width="128px" height="128px"
+                                    src="<%= mandataire.logo %>" alt="" class="profil-logo">
+                                <% } else { %>
+                                    <img style="margin-left: 5%;" class="profil-image" width="48px" height="48px"
+                                        src="img/add-photo.png" alt="" class="profil-logo">
+                                    <% } %>
+                                        <input type="file" name="mandataireLogo">
+                                        <input value="<%= mandataire.logo %>" required name="logo" id="logo" type="text"
+                                            class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-group">
+                            <label for="nom" class="form-label">Nom</label>
+                            <input value="<%= mandataire.nom %>" id="nom" required type="text" name="nom"
+                                class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-group">
+                            <label for="prenom" class="form-label">Prénom</label>
+                            <input value="<%= mandataire.prenom %>" id="prenom" required type="text" name="prenom"
+                                class="form-input" placeholder="Réponse">
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="form-label">Description</label>
+                            <input value="<%= mandataire.description %>" id="description" required type="text"
+                                name="description" class="form-input" placeholder="Réponse">
+                        </div>
+                        <input type="hidden" name="id" id="id" value="<%= mandataire._id%>">
+                        <div class="form-action">
+                            <button type="submit" class="cta">Modifier</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <%- include('../includes/succes.ejs') %>
+
+    </body>
+    <script src="js/api.js"></script>
+    <script src="/js/index.js"></script>
+
+    </html>
