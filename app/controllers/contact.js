@@ -29,7 +29,7 @@ exports.addContact = (req, res) => {
     })
         .then((response) => {
             req.flash('message', `${req.body.nom} ajouté à la liste des contacts`);
-            res.redirect(`/adherents`)
+            res.redirect(`/profil-adherent?id=${req.body.id_adherent}`)
         })
         .catch((error) => {
             console.log(error);
@@ -62,7 +62,7 @@ exports.editContact = (req, res) => {
     })
         .then((response) => {
             req.flash('message', `${req.body.nom} modifié`);
-            res.redirect(`/adherents`)
+            res.redirect(`/profil-adherent?id=${req.body.id_adherent}`)
         })
         .catch((error) => {
             console.log(error);
@@ -79,7 +79,7 @@ exports.deleteContact = (req, res) => {
     })
         .then((response) => {
             req.flash('message', `Contact supprimé`);
-            res.redirect(`/adherents`)
+            res.redirect(`/profil-adherent?id=${req.body.id_adherent}`)
         })
         .catch((error) => {
             res.send({ error: 'Impossible de supprimer cet contact' })

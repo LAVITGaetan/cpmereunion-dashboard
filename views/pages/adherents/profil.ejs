@@ -1,5 +1,6 @@
 <%- include('../includes/header.ejs') %>
     <%- include('../includes/navbar.ejs') %>
+    <%- include('../includes/message.ejs') %>
         <div class="layout">
             <div class="layout-content">
                 <div class="profil">
@@ -159,62 +160,6 @@
                     </div>
                 </div>
             </div>
-            <%- include('../includes/succes.ejs') %>
                 </body>
-                <script>
-                    function enableAdherent(id) {
-                        if (confirm('Voulez-vous vraiment activer cette adhérent ?')) {
-                            fetch(`https://cpme-rest-api.herokuapp.com/api/adherents/status/${id}/true`, {
-                                method: "PATCH",
-                                headers: {
-                                    'Content-type': 'application/json'
-                                }
-                            })
-                            setTimeout(() => {
-                                document.location.reload();
-                            }, 500);
-                        }
-                    }
-                    function disableAdherent(id) {
-                        if (confirm('Voulez-vous vraiment désactiver cette adhérent ?')) {
-                            fetch(`https://cpme-rest-api.herokuapp.com/api/adherents/status/${id}/false`, {
-                                method: "PATCH",
-                                headers: {
-                                    'Content-type': 'application/json'
-                                }
-                            })
-                            setTimeout(() => {
-                                document.location.reload();
-                            }, 500);
-                        }
-                    }
-                    function enableParution(id) {
-                        if (confirm('Voulez-vous vraiment activer cette Parution ?')) {
-                            fetch(`https://cpme-rest-api.herokuapp.com/api/adherents/parution/${id}/true`, {
-                                method: "PATCH",
-                                headers: {
-                                    'Content-type': 'application/json'
-                                }
-                            })
-                            setTimeout(() => {
-                                document.location.reload();
-                            }, 500);
-                        }
-                    }
-                    function disableParution(id) {
-                        if (confirm('Voulez-vous vraiment désactiver cette Parution ?')) {
-                            fetch(`https://cpme-rest-api.herokuapp.com/api/adherents/parution/${id}/false`, {
-                                method: "PATCH",
-                                headers: {
-                                    'Content-type': 'application/json'
-                                }
-                            })
-                            setTimeout(() => {
-                                document.location.reload();
-                            }, 500);
-                        }
-                    }
-
-                </script>
-
-                </html>
+<script src="js/index.js"></script>
+</html>

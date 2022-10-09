@@ -1,6 +1,6 @@
 <%- include('../includes/header.ejs') %>
 
-    <body onload="updateQuestionCount()">
+    <body>
         <%- include('../includes/navbar.ejs') %>
             <div class="content-form">
                 <%- include('../includes/form-tools.ejs') %>
@@ -13,8 +13,7 @@
                             <div onclick="destroyInput(1)" class="question-delete"><img src="img/chat.png" width="32px"
                                     height="32px" alt="delete">
                             </div>
-                            <div onclick="slideUp(1)" class="question-slide slide-up"><img src="img/down-chevron.png"
-                                    style="transform: rotate(180deg)" width="20px" height="20px" alt="delete"></div>
+                            <div onclick="slideUp(1)" class="question-slide slide-up"><img class="chevron-up" src="img/down-chevron.png" width="20px" height="20px" alt="delete"></div>
                             <div onclick="slideDown(1)" class="question-slide slide-down"><img
                                     src="img/down-chevron.png" width="20px" height="20px" alt="delete"></div>
                             <label class="question-label" contenteditable>Raison sociale de l' entreprise</label>
@@ -38,8 +37,6 @@
     <script src="js/api.js"></script>
     <script src="js/index.js"></script>
     <script>
-
-
         function saveForm() {
             let sondage = {
                 nom: document.getElementById('js-title').innerHTML,
@@ -78,10 +75,6 @@
             } catch (error) {
                 console.log(error);
             }
-        }
-
-        function displayForm() {
-            document.getElementsByClassName('modal')[0].style.display = 'block'
         }
     </script>
 

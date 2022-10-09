@@ -1,5 +1,6 @@
 <%- include('../includes/header.ejs') %>
     <%- include('../includes/navbar.ejs') %>
+    <%- include('../includes/message.ejs') %>
 
 
         <div class="profil">
@@ -19,9 +20,9 @@
                 <div class="flex">
                     <div class="container-action"><a href="/edit-sondage?id=<%= sondage._id %>"
                             class="container-cta no-decoration">Editer le formulaire</a></div>
-                    <div class="container-delete">
-                        <div class="container-ctd" data-message="Sondage supprimé, cliquez sur le bouton pour revenir aux sondages" data-redirection="/sondages" data-ressource="sondages/<%= sondage._id %>" onclick="deleteRessource(this)">Supprimer</div>
-                    </div>
+                    <a class="container-delete" href="/sondages/delete/<%=sondage._id%>">
+                        <div class="container-ctd">Supprimer</div>
+                    </a>
                 </div>
 
             </div>

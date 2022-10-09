@@ -1323,13 +1323,13 @@ body {
   color: var(--clrMain);
   font-weight: 800;
   text-align: center;
-  border-top: 10px solid var(--clrCta);
+  border-top: 10px solid var(--clrMain);
   font-size: 17px;
 }
 
 .alert-done {
   color: #fff;
-  margin: 35px 30px 10px;
+  margin: 35px 30px 0;
   background-color: #00c4cc;
   font-size: 15px;
   cursor: pointer;
@@ -1557,4 +1557,8 @@ padding: 5px 0;
   font-size: 17px;
   font-weight: 600;
   color: #081d2e;
+}
+
+.chevron-up {
+  transform: rotate(180deg)
 }

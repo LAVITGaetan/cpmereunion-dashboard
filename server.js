@@ -22,6 +22,7 @@ app.use(helmet({
         directives: {
             defaultSrc: ["'self'"],
             scriptSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com/*"],
+            "style-src": null,
         }
     }
 }));

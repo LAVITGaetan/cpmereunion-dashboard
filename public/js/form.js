@@ -1,3 +1,4 @@
+updateQuestionCount();
 // Init variables
 let formArray = [
     {
@@ -128,6 +129,9 @@ function addItemtoHtml(label, type, order, id) {
             generateQuestion(label, type, order, id)
             break;
     }
+    updateQuestionOrder();
+    updateQuestionCount();
+
 }
 
 // Add question to DOM
@@ -333,7 +337,7 @@ function createUp(id) {
     container.appendChild(newUp);
     newImg.setAttribute("width", "20px");
     newImg.setAttribute("height", "20px");
-    newImg.setAttribute("style", "transform:rotate(180deg)");
+    newImg.setAttribute("class", "chevron-up");
     newImg.setAttribute("src", "img/down-chevron.png");
     container.getElementsByClassName('slide-up')[0].appendChild(newImg)
 }
@@ -442,7 +446,7 @@ function slideUp(id) {
         //Array logic
         previousItem.order = item.order;
         item.order = newOrder;
-    }
+}
 }
 
 function slideDown(id) {

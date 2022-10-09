@@ -18,7 +18,12 @@ exports.addRepresentation = (req, res) => {
     })
         .then((response) => {
             req.flash('message', `Representation ajoutée`);
-            res.redirect(`/${req.params.ressource}`)
+            if(req.params.ressource === 'mandats') {
+                res.redirect(`/profil-mandat?id=${req.body.id_mandat}`)
+            }
+            else {
+                res.redirect(`/profil-mandataire?id=${req.body.id_mandataire}`)
+            }
         })
         .catch((error) => {
             console.log(error);
@@ -40,7 +45,12 @@ exports.editRepresentation = (req, res) => {
     })
         .then((response) => {
             req.flash('message', `Représentation modifiée`);
-            res.redirect(`/${req.params.ressource}`)
+            if(req.params.ressource === 'mandats') {
+                res.redirect(`/profil-mandat?id=${req.body.id_mandat}`)
+            }
+            else {
+                res.redirect(`/profil-mandataire?id=${req.body.id_mandataire}`)
+            }
         })
         .catch((error) => {
             console.log(error);

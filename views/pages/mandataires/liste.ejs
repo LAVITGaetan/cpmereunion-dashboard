@@ -48,24 +48,4 @@
             <script src="js/api.js"></script>
             
     </body>
-    <script>
-        function searchMandataire() {
-            let result_count = 0;
-            let query = document.getElementById('search').value.toLowerCase();
-            let item = document.getElementsByClassName('mandataire');
-            let length = item.length;
-            for (let i = 0; i < length; i++) {
-                let identite = item[i].getElementsByClassName('js-identite')[0].innerHTML.toLowerCase();
-                    if (identite.includes(query)) {
-                        item[i].style.display = 'table-row';
-                        result_count ++;
-                    }
-                    else {
-                        item[i].style.display = 'none';
-                    }
-
-            }
-            document.getElementById('js-result').innerHTML = result_count
-        }
-    </script>
     </html>

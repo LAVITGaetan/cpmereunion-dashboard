@@ -54,3 +54,51 @@ function searchAdherent() {
     }
     document.getElementById('js-result').innerHTML = result_count
 }
+
+//search input
+function searchMandat() {
+    let result_count = 0;
+    let query = document.getElementById('search').value.toLowerCase();
+    let item = document.getElementsByClassName('mandat');
+    let length = item.length;
+    let filter = document.getElementsByClassName('filter-selected')[0].innerHTML.toLowerCase();
+    for (let i = 0; i < length; i++) {
+        let label = item[i].getElementsByClassName('js-label')[0].innerHTML.toLowerCase();
+        let categorie = item[i].getElementsByClassName('js-categorie')[0].innerHTML.toLowerCase();
+        if (filter === "tous" || filter === categorie.replace(/\s/g, '')) {
+            if (label.includes(query)) {
+                item[i].style.display = 'table-row';
+                console.log('item matched');
+                result_count ++;
+            }
+            else {
+                item[i].style.display = 'none';
+                console.log('item hidden by query');
+            }
+        } else {
+            item[i].style.display = 'none';
+            console.log('item hidden by categorie');
+        }
+
+    }
+    document.getElementById('js-result').innerHTML = result_count
+}
+
+function searchMandataire() {
+    let result_count = 0;
+    let query = document.getElementById('search').value.toLowerCase();
+    let item = document.getElementsByClassName('mandataire');
+    let length = item.length;
+    for (let i = 0; i < length; i++) {
+        let identite = item[i].getElementsByClassName('js-identite')[0].innerHTML.toLowerCase();
+            if (identite.includes(query)) {
+                item[i].style.display = 'table-row';
+                result_count ++;
+            }
+            else {
+                item[i].style.display = 'none';
+            }
+
+    }
+    document.getElementById('js-result').innerHTML = result_count
+}

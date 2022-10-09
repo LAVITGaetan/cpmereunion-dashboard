@@ -1,5 +1,5 @@
 <%- include('../includes/header.ejs') %>
-
+<%- include('../includes/message.ejs') %>
 
     <body>
         <%- include('../includes/navbar.ejs') %>
@@ -31,33 +31,18 @@
                         <a href="/profil-sondage?id=<%= sondage._id %>" class="no-decoration card-edit">
                             <img src="img/edit.png" width="12px" height="12px" alt="edit">
                         </a>
-                        <div class="card-delete" data-message="Sondage supprimé, cliquez sur le bouton pour revenir aux sondages" data-redirection="/sondages" data-ressource="sondages/<%= sondage._id %>" onclick="deleteRessource(this)">
+                        <a class="card-delete"href="/sondages/delete/<%=sondage._id%>">
                             <img src="img/delete.png" width="12px" height="12px" alt="delete">
-                        </div>
+                        </a>
                     </div>
                     <% }) %>
             </div>
             </div>
             
-        <%- include('../includes/succes.ejs') %>
     </body>
     <script>
-
-        function closeModal() {
-            let modal = document.getElementById('modal');
-            modal.style.display = "none";
-        }
-
         function deleteSondage(id) {
             if (confirm('Voulez-vous vraiment supprimer cette adhérent ?')) {
-                console.log(id);
-                fetch(`https://cpme-rest-api.herokuapp.com/api/sondages/${id}`, {
-                    method: "DELETE",
-                    headers: {
-                        'Content-type': 'application/json'
-                    }
-                })
-
                 fetch(`https://cpme-rest-api.herokuapp.com/api/sondages/${id}/questions`, {
                     method: "DELETE",
                     headers: {
@@ -66,7 +51,7 @@
                 })
             }
             setTimeout(() => {
-                alert('Adhérent supprimé')
+                alert('Sondage supprimé')
                 document.location.reload()
             }, 100);
         }
