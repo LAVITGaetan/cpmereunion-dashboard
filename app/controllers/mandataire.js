@@ -29,8 +29,8 @@ exports.addMandataire = (req, res) => {
             res.redirect(`/mandataires`)
         })
         .catch((error) => {
-            console.log(error);
-            res.send({ error: 'Cannot add mandataire' })
+            req.flash('message', `Impossible d\' ajouter le mandataire`);
+            res.redirect(`/mandataires`)
         })
 }
 
@@ -56,11 +56,11 @@ exports.editMandataire = (req, res) => {
     })
         .then((response) => {
             req.flash('message', `${req.body.nom} modifié`);
-            res.redirect(`/mandataires`)
+            res.redirect(`/profil-mandataire?id=${req.params.id}`)
         })
         .catch((error) => {
-            console.log(error);
-            res.send({ error: 'Cannot edit mandataire' })
+            req.flash('message', `Impossible de modifier le mandataire`);
+            res.redirect(`/profil-mandataire?id=${req.params.id}`)
         })
 }
 

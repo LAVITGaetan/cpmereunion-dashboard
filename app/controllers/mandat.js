@@ -65,12 +65,12 @@ exports.editMandat = (req, res) => {
     })
         .then((response) => {
             req.flash('message', `${req.body.label} modifié`);
-            res.redirect(`/mandats`)
+            res.redirect(`/profil-mandat?id=${req.params.id}`)
         })
         .catch((error) => {
             console.log(error);
             req.flash('message', `Une erreur est survenue lors de l\'édition du mandat`);
-            res.redirect(`/mandats`)
+            res.redirect(`/profil-mandat?id=${req.params.id}`)
         })
 }
 
