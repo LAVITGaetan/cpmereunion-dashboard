@@ -32,8 +32,8 @@ exports.addContact = (req, res) => {
             res.redirect(`/profil-adherent?id=${req.body.id_adherent}`)
         })
         .catch((error) => {
-            console.log(error);
-            res.send({ error: 'Cannot add contact' })
+            req.flash('message', `Impossible d\' ajouter le contact`);
+            res.redirect(`/profil-adherent?id=${req.body.id_adherent}`)
         })
 }
 
@@ -65,8 +65,8 @@ exports.editContact = (req, res) => {
             res.redirect(`/profil-adherent?id=${req.body.id_adherent}`)
         })
         .catch((error) => {
-            console.log(error);
-            res.send({ error: 'Cannot edit contact' })
+            req.flash('message', `Impossible d\'ajouter le contact`);
+            res.redirect(`/profil-adherent?id=${req.body.id_adherent}`)
         })
 }
 
@@ -79,9 +79,10 @@ exports.deleteContact = (req, res) => {
     })
         .then((response) => {
             req.flash('message', `Contact supprimé`);
-            res.redirect(`/profil-adherent?id=${req.body.id_adherent}`)
+            res.redirect(`/profil-adherent?id=${req.params.id_adherent}`)
         })
         .catch((error) => {
-            res.send({ error: 'Impossible de supprimer cet contact' })
+            req.flash('message', `Impossible de supprimer le contact`);
+            res.redirect(`/profil-adherent?id=${req.params.id_adherent}`)
         })
 }

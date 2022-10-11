@@ -70,7 +70,7 @@
                                                 class="card-representation-action"><img src="img/chat.png" width="24px"
                                                     height="24px" alt="delete">
                                         </a>
-                                            <div onclick="showModalRepresentation('<%= representation._id %>', '<%=representation.titre %>')"
+                                            <div onclick="showModalRepresentation('<%= representation._id %>', '<%=representation.titre %>', 'mandataires', '<%=mandats.find(el => el._id === representation.id_mandat)._id%>', '<%=mandataire._id%>')"
                                                 class="card-representation-action"><img src="img/edit-cta.png"
                                                     width="24px" height="24px" alt="edit">
                                             </div>
@@ -115,5 +115,5 @@
                 <div class="modal-close" onclick="closeModal()">Fermer</div>
             </div>
         </div>
-            </body>
-            </html>
+        <%- include('../includes/representationModal.ejs') %>
+        <%- include('../includes/footer.ejs') %>

@@ -34,7 +34,8 @@ exports.addMandat = (req, res) => {
         })
         .catch((error) => {
             console.log(error);
-            res.send({ error: 'Cannot add mandat' })
+            req.flash('message', `Une erreur est survenue lors de l\'ajout du mandat`);
+            res.redirect(`/mandats`)
         })
 }
 
@@ -63,12 +64,13 @@ exports.editMandat = (req, res) => {
         }
     })
         .then((response) => {
-            req.flash('message', `${req.body.nom} modifié`);
+            req.flash('message', `${req.body.label} modifié`);
             res.redirect(`/mandats`)
         })
         .catch((error) => {
             console.log(error);
-            res.send({ error: 'Cannot edit mandat' })
+            req.flash('message', `Une erreur est survenue lors de l\'édition du mandat`);
+            res.redirect(`/mandats`)
         })
 }
 
@@ -84,6 +86,7 @@ exports.deleteMandat = (req, res) => {
             res.redirect(`/mandats`)
         })
         .catch((error) => {
-            res.send({ error: 'Impossible de supprimer cet mandat' })
+            req.flash('message', `Une erreur est survenue lors de la suppression du mandat`);
+            res.redirect(`/mandats`)
         })
 }

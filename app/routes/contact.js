@@ -10,6 +10,6 @@ router.post('/add', controller.addContact)
 router.post('/edit/:id', controller.editContact)
 
 // Delete contact
-router.get('/delete/:id', controller.deleteContact)
+router.get('/delete/:id/:id_adherent', controller.deleteContact)
 
 module.exports = router;

@@ -11,15 +11,22 @@ exports.login = async (req, res) => {
         identifiant: req.body.identifiant
     })
         .then((response) => {
-            res.cookie('token', response.data.token, {
-                secure: true,
-                httpOnly: true,
-                maxAge: 3600 * 60 * 24,
-            }).redirect('/accueil')
+            if(response.data.token) {
+                res.cookie('token', response.data.token, {
+                    secure: true,
+                    httpOnly: true,
+                    maxAge: 3600 * 60 * 24,
+                }).redirect('/accueil')
+            }
+            else {
+                req.flash('message', 'Erreur lors de la connexion, vérifiez vos informations.');
+                res.redirect('/')
+            }
+
         })
         .catch((err) => {
-            console.log(err.message);
-            res.redirect('/');
+            req.flash('message', 'Une erreur est survenue. Réesayez');
+            res.redirect('/')
         })
 }
 

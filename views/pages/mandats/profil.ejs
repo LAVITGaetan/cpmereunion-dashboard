@@ -80,7 +80,7 @@
                                                 class="card-representation-action"><img src="img/chat.png" width="24px"
                                                     height="24px" alt="delete">
                                         </a>
-                                            <div onclick="showModalRepresentation('<%= representation._id %>', '<%=representation.titre %>')"
+                                            <div onclick="showModalRepresentation('<%= representation._id %>', '<%=representation.titre %>', 'mandats', '<%=mandat._id%>', '<%=mandataires.find(el => el._id === representation.id_mandataire)._id%>')"
                                                 class="card-representation-action"><img src="img/edit-cta.png"
                                                     width="24px" height="24px" alt="edit">
                                             </div>
@@ -126,8 +126,5 @@
             </div>
         </div>
 
-            </body>
-            <script src="js/index.js"></script>
-            <script src="js/api.js"></script>
-
-            </html>
+        <%- include('../includes/representationModal.ejs') %>
+        <%- include('../includes/footer.ejs') %>

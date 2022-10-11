@@ -7,7 +7,7 @@ const instance = axios.create({
 exports.addRepresentation = (req, res) => {
     const token = req.cookies.token;
     let payload = {
-        titre: req.body.nom,
+        titre: req.body.titre,
         id_mandat: req.body.id_mandat,
         id_mandataire: req.body.id_mandataire,
     }
@@ -34,7 +34,7 @@ exports.addRepresentation = (req, res) => {
 exports.editRepresentation = (req, res) => {
     const token = req.cookies.token;
     let payload = {
-        titre: req.body.nom,
+        titre: req.body.titre,
         id_mandat: req.body.id_mandat,
         id_mandataire: req.body.id_mandataire,
     }
@@ -67,7 +67,13 @@ exports.deleteRepresentation = (req, res) => {
     })
         .then((response) => {
             req.flash('message', `Representation supprimée`);
-            res.redirect(`/${req.params.ressource}`)    
+            console.log('hey : ' + req.params.ressource);
+            if(req.params.ressource === 'mandats') {
+                res.redirect(`/mandats`)
+            }
+            else {
+                res.redirect(`/mandataires`)
+            }
         })
         .catch((error) => {
             res.send({ error: 'Impossible de supprimer le representation' })

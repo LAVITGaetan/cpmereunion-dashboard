@@ -36,8 +36,8 @@ exports.addAdherent = (req, res) => {
             res.redirect(`/adherents`)
         })
         .catch((error) => {
-            console.log(error);
-            res.send({ error: 'Cannot add adherent' })
+            req.flash('message', `Erreur lors de l\'ajout de l\'adhérent`)
+            res.redirect(`/profil-adherent?id=${req.params.id}`)
         })
 }
 
@@ -73,8 +73,8 @@ exports.editAdherent = (req, res) => {
             res.redirect(`/adherents`)
         })
         .catch((error) => {
-            console.log(error);
-            res.send({ error: 'Cannot edit adherent' })
+            req.flash('message', `Erreur lors de la modification de l\'adhérent`)
+            res.redirect(`/profil-adherent?id=${req.params.id}`)
         })
 }
 
@@ -90,7 +90,8 @@ exports.deleteAdherent = (req, res) => {
             res.redirect(`/adherents`)
         })
         .catch((error) => {
-            res.send({ error: 'Impossible de supprimer cet adherent' })
+            req.flash('message', `Erreur lors de la suppression de l\'adhérent`)
+            res.redirect(`/profil-adherent?id=${req.params.id}`)
         })
 }
 
@@ -103,11 +104,11 @@ exports.editParution = (req, res) => {
     })
         .then((response) => {
             req.flash('message', `Parution de l' adhérent modifiée`)
-            res.redirect(`/adherents`)
+            res.redirect(`/profil-adherent?id=${req.params.id}`)
         })
         .catch((error) => {
-            console.log(error);
-            res.send({ error: 'Cannot edit parution' })
+            req.flash('message', `Erreur lors du changement de parution`)
+            res.redirect(`/profil-adherent?id=${req.params.id}`)
         })
 }
 
@@ -120,10 +121,10 @@ exports.editStatus = (req, res) => {
     })
         .then((response) => {
             req.flash('message', `Statut de l' adhérent modifié`)
-            res.redirect(`/adherents`)
+            res.redirect(`/profil-adherent?id=${req.params.id}`)
         })
         .catch((error) => {
-            console.log(error);
-            res.send({ error: 'Cannot edit parution' })
+            req.flash('message', `Erreur lors du changement de status`)
+            res.redirect(`/profil-adherent?id=${req.params.id}`)
         })
 }
