@@ -60,8 +60,8 @@ exports.deleteSondage = (req, res) => {
             res.redirect(`/sondages`)
         })
         .catch((error) => {
-            res.send({ error: 'Impossible de supprimer ce sondage' })
-        })
+            req.flash('message', `Impossible de supprimer le sondage`);
+            res.redirect(`/sondages`)})
 }
 
 exports.editParution = (req, res) => {
@@ -72,11 +72,11 @@ exports.editParution = (req, res) => {
         }
     })
         .then((response) => {
-            req.flash('message', `Parution de l' adhérent modifiée`)
-            res.redirect(`/sondages`)
+            req.flash('message', `Parution du sondage modifiée`)
+            res.redirect(`/profil-sondage?id=${req.params.id}`)
         })
         .catch((error) => {
-            console.log(error);
-            res.send({ error: 'Cannot edit parution' })
+            req.flash('message', `IMpossible de modifier la parution du sondage`)
+            res.redirect(`/profil-sondage?id=${req.params.id}`)
         })
 }

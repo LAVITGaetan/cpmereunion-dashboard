@@ -1649,6 +1649,10 @@ body {
 
 @media screen and (max-width:768px) {
 
+  .index {
+    padding: 25px;
+  }
+
   .index1 {
     width: 100%;
     margin-bottom: 25px;

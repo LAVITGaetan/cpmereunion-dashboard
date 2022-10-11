@@ -69,8 +69,8 @@ exports.editAdherent = (req, res) => {
         }
     })
         .then((response) => {
-            req.flash('message', `${req.body.nom} modifié`);
-            res.redirect(`/adherents`)
+            req.flash('message', `${req.body.entreprise} modifié`);
+            res.redirect(`/profil-adherent?id=${req.params.id}`)
         })
         .catch((error) => {
             req.flash('message', `Erreur lors de la modification de l\'adhérent`)
