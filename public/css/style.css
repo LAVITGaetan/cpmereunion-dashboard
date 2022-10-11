@@ -735,7 +735,7 @@ body {
 .profil-image {
   margin: 0 0 1em 5%;
   display: block;
-  border: 3px solid #20BFC110;
+  border: 3px solid #20BFC110;    background: var(--clrMain);
 }
 
 .profil-settings {
@@ -1326,6 +1326,7 @@ body {
   z-index: 1000;
   width: 300px;
   left: calc(50vw - 150px);
+  border-radius: 5px;
   top: 25vh;
   max-height: 50vh;
   overflow: auto;
@@ -1371,6 +1372,13 @@ body {
   border-top: 10px solid var(--clrMain);
   font-size: 17px;
   display: none;
+}
+
+#identite {
+  text-align: left;
+  color: var(--clrMain);
+  font-size: 17px;
+  font-weight: 600;
 }
 
 .modal, #modal {
@@ -1429,6 +1437,8 @@ body {
   font-weight: 600;
   justify-content: center;
   border-radius: 50px;
+  border: none;
+  outline: none;
 }
 
 .modal-close {
@@ -1642,6 +1652,10 @@ body {
     width: 100%;
   }
 
+.card {
+  width: calc(50% - 20px);
+}
+
 }
 
 
@@ -1692,6 +1706,14 @@ body {
     padding: 20px 50px;
   }
 
+.navbar-mobile-title {
+  font-size: 18px;
+  color: #081d2e;
+  background-color: #00c4cc;
+  margin: 20px 0;
+  padding: 15px;
+}
+
   .navbar-title {
     color: #fff;
     font-weight: 600;
@@ -1707,16 +1729,21 @@ body {
     height: 100vh;
     background-color: #FFFFFF;
     flex-wrap: wrap;
+    z-index: 1000;
     padding: 20px;
+    display: none;
+    flex-direction: column;
   }
 
   .navbar-mobile-link {
     color: #081d2e;
     width: 100%;
     padding: 10px;
-    margin-bottom: 20px;
     height: 40px;
     text-decoration: none;
+    font-size: 16px;
+    border: 2px solid #f1f4f8;
+    margin: 10px 0;
   }
 
   .navbar-mobile-titile {
@@ -1733,5 +1760,18 @@ body {
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     min-height: 100vh;
+  }
+
+  .searchbox {
+    order: 2;
+      margin: 20px 0;
+  }
+  .cta {
+    margin: 20px 0;
+    width: 100%;
+  }
+
+  .card {
+    width: 100%;
   }
 }

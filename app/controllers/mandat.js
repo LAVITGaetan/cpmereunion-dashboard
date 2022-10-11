@@ -68,7 +68,6 @@ exports.editMandat = (req, res) => {
             res.redirect(`/profil-mandat?id=${req.params.id}`)
         })
         .catch((error) => {
-            console.log(error);
             req.flash('message', `Une erreur est survenue lors de l\'édition du mandat`);
             res.redirect(`/profil-mandat?id=${req.params.id}`)
         })

@@ -51,7 +51,6 @@ function searchAdherent() {
             item[i].style.display = 'none';
             console.log('item hidden by section');
         }
-
     }
     document.getElementById('js-result').innerHTML = result_count
 }
@@ -80,7 +79,6 @@ function searchMandat() {
             item[i].style.display = 'none';
             console.log('item hidden by categorie');
         }
-
     }
     document.getElementById('js-result').innerHTML = result_count
 }
@@ -109,6 +107,11 @@ function showNavbar() {
     content.style.display='flex';
 }
 
+function closeNavbar() {
+    let content  = document.getElementsByClassName('navbar-content')[0]
+    content.style.display='none';
+}
+
 function showModalRepresentation(id, titre, ressource, id_mandat, id_mandataire) {
     let modal = document.getElementById('modal-representation');
     let form = document.getElementById('form-representation')
@@ -127,7 +130,6 @@ function showModalRepresentation(id, titre, ressource, id_mandat, id_mandataire)
     }
     else {
         form.setAttribute('action', `/representations/edit/${id}/mandataires`)
-
     }
     modal.style.display = 'block';
 }

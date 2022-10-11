@@ -10,6 +10,6 @@ router.post('/add/:ressource', controller.addRepresentation)
 router.post('/edit/:id/:ressource', controller.editRepresentation)
 
 // Delete representation
-router.get('/delete/:id/:ressource', controller.deleteRepresentation)
+router.get('/delete/:id/:ressource/:id_mandat/:id_mandataire', controller.deleteRepresentation)
 
 module.exports = router;

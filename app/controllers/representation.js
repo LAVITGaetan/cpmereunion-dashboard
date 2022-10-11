@@ -66,16 +66,17 @@ exports.deleteRepresentation = (req, res) => {
         }
     })
         .then((response) => {
-            req.flash('message', `Representation supprimée`);
-            console.log('hey : ' + req.params.ressource);
+            req.flash('message', `Représentation supprimée`);
             if(req.params.ressource === 'mandats') {
-                res.redirect(`/mandats`)
+                res.redirect(`/profil-mandat?id=${req.params.id_mandat}`)
             }
             else {
                 res.redirect(`/mandataires`)
+                res.redirect(`/profil-mandataire?id=${req.params.id_mandataire}`)
             }
         })
         .catch((error) => {
-            res.send({ error: 'Impossible de supprimer le representation' })
+            req.flash('message', `Impossible d' ajouter la représentation`);
+            res.redirect(`/${req.params.ressource}`)
         })
 }
