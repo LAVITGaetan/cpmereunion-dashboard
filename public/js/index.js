@@ -15,9 +15,11 @@ function closeAlert() {
     let alert = document.getElementsByClassName('alert-info')[0];
     alert.style.display = "none";
 }
-document.getElementsByClassName('alert-done')[0].addEventListener('click', () => {
-    closeAlert();
-})
+if (document.getElementsByClassName('alert-done')[0]) {
+    document.getElementsByClassName('alert-done')[0].addEventListener('click', () => {
+        closeAlert();
+    })
+}
 
 //search filter
 function changeFilter(id) {
@@ -41,7 +43,7 @@ function searchAdherent() {
             if (entreprise.includes(query)) {
                 item[i].style.display = 'table-row';
                 console.log('item matched');
-                result_count ++;
+                result_count++;
             }
             else {
                 item[i].style.display = 'none';
@@ -69,7 +71,7 @@ function searchMandat() {
             if (label.includes(query)) {
                 item[i].style.display = 'table-row';
                 console.log('item matched');
-                result_count ++;
+                result_count++;
             }
             else {
                 item[i].style.display = 'none';
@@ -90,26 +92,26 @@ function searchMandataire() {
     let length = item.length;
     for (let i = 0; i < length; i++) {
         let identite = item[i].getElementsByClassName('js-identite')[0].innerHTML.toLowerCase();
-            if (identite.includes(query)) {
-                item[i].style.display = 'table-row';
-                result_count ++;
-            }
-            else {
-                item[i].style.display = 'none';
-            }
+        if (identite.includes(query)) {
+            item[i].style.display = 'table-row';
+            result_count++;
+        }
+        else {
+            item[i].style.display = 'none';
+        }
 
     }
     document.getElementById('js-result').innerHTML = result_count
 }
 
 function showNavbar() {
-    let content  = document.getElementsByClassName('navbar-content')[0]
-    content.style.display='flex';
+    let content = document.getElementsByClassName('navbar-content')[0]
+    content.style.display = 'flex';
 }
 
 function closeNavbar() {
-    let content  = document.getElementsByClassName('navbar-content')[0]
-    content.style.display='none';
+    let content = document.getElementsByClassName('navbar-content')[0]
+    content.style.display = 'none';
 }
 
 function showModalRepresentation(id, titre, ressource, id_mandat, id_mandataire) {
@@ -125,7 +127,7 @@ function showModalRepresentation(id, titre, ressource, id_mandat, id_mandataire)
     hidden_id.value = id;
     hidden_id_mandat.value = id_mandat;
     hidden_id_mandataire.value = id_mandataire;
-    if(ressource === 'mandats') {
+    if (ressource === 'mandats') {
         form.setAttribute('action', `/representations/edit/${id}/mandats`)
     }
     else {
