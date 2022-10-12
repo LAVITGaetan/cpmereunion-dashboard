@@ -24,7 +24,9 @@ exports.addAdherent = (req, res) => {
         siteweb: req.body.siteweb,
         nom: req.body.nom,
         prenom: req.body.prenom,
-        logo: path
+        logo: path,
+        parution: false,
+        status: true,
     }
     instance.post(`/adherents`, payload, {
         headers: {
@@ -32,10 +34,11 @@ exports.addAdherent = (req, res) => {
         }
     })
         .then((response) => {
-            req.flash('message', `${req.body.nom} ajouté à la liste des adherents`);
+            req.flash('message', `${req.body.entreprise} ajouté à la liste des adherents`);
             res.redirect(`/adherents`)
         })
         .catch((error) => {
+            console.log(error.message);
             req.flash('message', `Erreur lors de l\'ajout de l\'adhérent`)
             res.redirect(`/profil-adherent?id=${req.params.id}`)
         })
@@ -61,7 +64,9 @@ exports.editAdherent = (req, res) => {
         siteweb: req.body.siteweb,
         nom: req.body.nom,
         prenom: req.body.prenom,
-        logo: path
+        logo: path,
+        parution: req.body.parution,
+        status: true,
     }
     instance.patch(`/adherents/${req.params.id}`, payload, {
         headers: {
@@ -73,6 +78,7 @@ exports.editAdherent = (req, res) => {
             res.redirect(`/profil-adherent?id=${req.params.id}`)
         })
         .catch((error) => {
+            console.log(error);
             req.flash('message', `Erreur lors de la modification de l\'adhérent`)
             res.redirect(`/profil-adherent?id=${req.params.id}`)
         })

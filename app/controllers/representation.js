@@ -53,8 +53,8 @@ exports.editRepresentation = (req, res) => {
             }
         })
         .catch((error) => {
-            console.log(error);
-            res.send({ error: 'Cannot edit representation' })
+            req.flash('message', `Impossible de modifier la représentation`);
+            res.redirect(`/${req.params.ressource}`)
         })
 }
 
@@ -71,7 +71,6 @@ exports.deleteRepresentation = (req, res) => {
                 res.redirect(`/profil-mandat?id=${req.params.id_mandat}`)
             }
             else {
-                res.redirect(`/mandataires`)
                 res.redirect(`/profil-mandataire?id=${req.params.id_mandataire}`)
             }
         })

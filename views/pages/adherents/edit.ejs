@@ -66,6 +66,7 @@
                             <input value="<%= adherent.prenom %>" id="prenom" required type="text" name="prenom"
                                 class="form-input" placeholder="Réponse">
                         </div>
+                        <input type="hidden" name="parution" value="<%=adherent.parution?'true':'false'%>">
                         <div class="form-group">
                             <label for="email" class="form-label">Adresse E-mail</label>
                             <input value="<%= adherent.email %>" id="email" required type="text" name="email"
