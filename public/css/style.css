@@ -5,7 +5,7 @@
 
 @font-face {
   font-family: "Montserrat_bold";
-  src: url("/Montserrat/static/Montserrat-bold.ttf");
+  src: url("/Montserrat/Montserrat-bold.ttf");
 }
 
 /* Global */
@@ -1854,5 +1854,8 @@ display: none;
     display: none;
   }
 
+  .form-input, .form-group, .form-select {
+    width: 100%;
 
+  }
 }
