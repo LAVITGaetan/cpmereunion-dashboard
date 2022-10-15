@@ -14,6 +14,7 @@ const mandataireRoutes = require('./app/routes/mandataire')
 const contactRoutes = require('./app/routes/contact')
 const representationRoutes = require('./app/routes/representation')
 const sondageRoutes = require('./app/routes/sondage')
+const publicRoutes = require('./app/routes/public')
 
 // Security 
 app.use(helmet({
@@ -90,6 +91,13 @@ app.get('/sondages', services.getSondages)
 app.get('/profil-sondage', services.getSondage)
 app.get('/add-sondage', services.addSondage)
 app.get('/edit-sondage', services.editSondage)
+
+// Routes public
+app.get('/public', services.publicLogin)
+app.get('/public/sondages', services.publicSondages)
+app.get('/public/sondage/:id', services.publicSondage)
+
+app.use('/repondant', publicRoutes)
 
 // Server start
 const PORT = process.env.PORT || 3000;

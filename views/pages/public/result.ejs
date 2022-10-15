@@ -1,0 +1,12 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/message.ejs') %>
+
+<h1 class="sondage-title">Réponse enregistrée</h1>
+<div class="result-container">
+<% array.forEach(item => { %>
+    <div class="result-row">
+        <span class="result-label"><%=item.label%> :</span>
+        <span class="result-value"><%=item.value%></span>
+    </div>
+<% }) %>
+</div>

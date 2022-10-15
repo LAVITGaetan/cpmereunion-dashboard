@@ -1,0 +1,15 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/message.ejs') %>
+<h1 class="sondage-title">Choisissez un sondage</h1>
+
+<div class="sondage-container">
+
+<% sondages.forEach(sondage => { %>
+  <div class="card-sondage">
+    <h2 class="card-title">
+      <%=sondage.titre%>
+    </h2>  
+    <a class="sondage-action" href="/public/sondage/<%=sondage._id%>">Voir le sondage</a>
+  </div>
+<% }) %>
+</div>

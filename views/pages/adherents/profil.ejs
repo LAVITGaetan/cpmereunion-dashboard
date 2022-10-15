@@ -7,42 +7,42 @@
 
                         <div class="container">
                             <div class="container-header">Informations générales</div>
-                            <% if (adherent.logo !=='' ) { %>
-                                <img style="margin: 0 0 1em 5%;" class="profil-image" width="128px" height="128px"
+                            <% if (adherent.logo && adherent.logo !=='') { %>
+                                <img class="profil-image" width="128px" height="128px"
                                     src="<%= adherent.logo %>" alt="" class="profil-logo">
                                 <% } else { %>
-                                    <img style="margin-left: 5%;" class="profil-image" width="48px" height="48px"
+                                    <img class="profil-image" width="128px" height="128px"
                                         src="img/add-photo.png" alt="" class="profil-logo">
                                     <% } %>
-                                        <div class="container-row"><span class="row-label">Raison Sociale :
+                                        <div class="container-row scrollbar"><span class="row-label">Raison Sociale :
                                             </span>
                                             <%= adherent.entreprise %>
                                         </div>
-                                        <div class="container-row"><span class="row-label">Section :
+                                        <div class="container-row scrollbar"><span class="row-label">Section :
                                             </span>
                                             <%= adherent.section %>
                                         </div>
-                                        <div class="container-row"><span class="row-label">Activité :
+                                        <div class="container-row scrollbar"><span class="row-label">Activité :
                                             </span>
                                             <%= adherent.activite %>
                                         </div>
-                                        <div class="container-row"><span class="row-label">Adresse : </span>
+                                        <div class="container-row scrollbar"><span class="row-label">Adresse : </span>
                                             <%= adherent.adresse %>
                                         </div>
-                                        <div class="container-row"><span class="row-label">Représentant :
+                                        <div class="container-row scrollbar"><span class="row-label">Représentant :
                                             </span>
                                             <%= adherent.prenom %>
                                                 <%= adherent.nom %>
                                         </div>
-                                        <div class="container-row"><span class="row-label">Email : </span>
+                                        <div class="container-row scrollbar"><span class="row-label">Email : </span>
                                             <%= adherent.email %>
                                         </div>
-                                        <div class="container-row"><span class="row-label">Téléphone :
+                                        <div class="container-row scrollbar"><span class="row-label">Téléphone :
                                             </span>
                                             <%= adherent.telephone %>
                                         </div>
 
-                                        <div class="container-row"><span class="row-label">Site web :
+                                        <div class="container-row scrollbar"><span class="row-label">Site web :
                                             </span>
                                             <%= adherent.siteweb %>
                                         </div>
@@ -70,17 +70,17 @@
                                             <img src="img/edit-cta.png" width="24px" height="24px" alt="edit">
                                         </a>
 
-                                        <div class="container-row"><span class="row-label bold">Contact <%=i+1%>
+                                        <div class="container-row scrollbar"><span class="row-label bold">Contact <%=i+1%>
                                             </span>
                                         </div>
                                         <%if(contacts[i].titre) {%>
-                                            <div class="container-row"><span class="row-label">Titre :
+                                            <div class="container-row scrollbar"><span class="row-label">Titre :
                                                 </span>
                                                 <%= contacts[i].titre %>
                                             </div>
                                             <% } %>
                                                 <%if(contacts[i].prenom && contacts[i].nom) {%>
-                                                    <div class="container-row"><span class="row-label">Identité :
+                                                    <div class="container-row scrollbar"><span class="row-label">Identité :
                                                         </span>
                                                         <%= contacts[i].prenom %>
                                                             <%= contacts[i].nom %>
@@ -88,14 +88,14 @@
                                                     <% } %>
 
                                                         <%if(contacts[i].email) {%>
-                                                            <div class="container-row"><span class="row-label">Email :
+                                                            <div class="container-row scrollbar"><span class="row-label">Email :
                                                                     <%= contacts[i].email %>
                                                                 </span>
                                                             </div>
                                                             <% } %>
 
                                                                 <%if(contacts[i].telephone) {%>
-                                                                    <div class="container-row"><span
+                                                                    <div class="container-row scrollbar"><span
                                                                             class="row-label">Téléphone
                                                                             :
                                                                         </span>
@@ -104,7 +104,7 @@
                                                                     <% } %>
 
                                                                         <%if(contacts[i].linkedin) {%>
-                                                                            <div class="container-row"><span
+                                                                            <div class="container-row scrollbar"><span
                                                                                     class="row-label">LinkedIn :
                                                                                 </span>
                                                                                 <%= contacts[i].linkedin %>
@@ -113,11 +113,11 @@
                                     </div>
                                     <% } %>
                                         <% } else { %>
-                                            <div class="container-row">Aucune
+                                            <div class="container-row scrollbar">Aucune
                                                 informations de contact</div>
                                             <% } %>
 
-                                                <div class="container-row"><span class="row-label">Parution :
+                                                <div class="container-row scrollbar"><span class="row-label">Parution :
                                                     </span>
                                                     <%= adherent.parution==1 ? 'activée' : 'desactivée' %>
                                                 </div>
@@ -144,11 +144,11 @@
                                                 </div>
                         </div>
                         <div class="profil-settings">
-                            <div class="container-row"><span class="row-label">Adresse de connexion :
+                            <div class="container-row scrollbar"><span class="row-label">Adresse de connexion :
                                 </span>
                                 <%= adherent.email %>
                             </div>
-                            <div class="container-row"><span class="row-label">Mot de passe :
+                            <div class="container-row scrollbar"><span class="row-label">Mot de passe :
                                 </span>
                                 <%= adherent.identifiant %>
                             </div>

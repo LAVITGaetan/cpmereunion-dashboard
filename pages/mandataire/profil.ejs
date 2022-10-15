@@ -13,20 +13,20 @@
                                 <img style="margin-left: 5%;" class="profil-image" width="48px" height="48px"
                                     src="img/add-photo.png" alt="" class="profil-logo">
                                 <% } %>
-                                    <div class="container-row"><span class="row-label">Nom :
+                                    <div class="container-row scrollbar"><span class="row-label">Nom :
                                         </span>
                                         <%= mandataire.nom %>
                                     </div>
-                                    <div class="container-row"><span class="row-label">Prénom :
+                                    <div class="container-row scrollbar"><span class="row-label">Prénom :
                                         </span>
                                         <%= mandataire.prenom %>
                                     </div>
-                                    <div class="container-row"><span class="row-label">Nombre de mandats :
+                                    <div class="container-row scrollbar"><span class="row-label">Nombre de mandats :
                                         </span>
                                         <%= representations.filter(el=> el.id_mandataire === mandataire._id).length %>
                                             Mandats
                                     </div>
-                                    <div class="container-row"><span class="row-label">Description :
+                                    <div class="container-row scrollbar"><span class="row-label">Description :
                                         </span>
                                         <%= mandataire.description %>
                                     </div>
