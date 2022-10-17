@@ -1,80 +1,34 @@
 <%- include('../includes/header.ejs') %>
+    <%- include('../includes/navbar.ejs') %>
+        <div class="content-form">
+            <%- include('../includes/form-tools.ejs') %>
+                <form action="/sondages/add" class="form-editor scrollbar" id="js-content" method="POST">
+                    <input type="text" name="titre" class="editor-title" contenteditable id="js-title"
+                        value="Titre du sondage" />
+                    <input type="submit" value="Enregistrer le formulaire" class="editor-save" onclick="saveForm()">
+                    <div class="editor-question" style="order: 1" id="js-container1">
+                        <div class="question-counter">1</div>
+                        <div onclick="destroyInput(1)" class="question-delete"><img src="img/chat.png" width="32px"
+                                height="32px" alt="delete">
+                        </div>
+                        <div onclick="slideUp(1)" class="question-slide slide-up"><img class="chevron-up"
+                                src="img/down-chevron.png" width="20px" height="20px" alt="delete"></div>
+                        <div onclick="slideDown(1)" class="question-slide slide-down"><img src="img/down-chevron.png"
+                                width="20px" height="20px" alt="delete"></div>
+                        <input name="label_0" class="question-label" type="text"
+                            value="Raison sociale de l' entreprise">
+                            <input name="type_0" type="hidden"
+                            value="text">
+                        <input name="description_0" class="question-sub" placeholder="description" />
+                        <input class="question-input" type="text" placeholder="Réponse">
+                        <div class="question-required">
+                            <input class="required-checkbox" type="radio" name="required_0">
 
-    <body>
-        <%- include('../includes/navbar.ejs') %>
-            <div class="content-form">
-                <%- include('../includes/form-tools.ejs') %>
-
-                    <div class="form-editor scrollbar" id="js-content">
-                        <h2 class="editor-title" contenteditable id="js-title">Titre du sondage</h2>
-                        <input class="editor-save" onclick="saveForm()">Sauvegarder le formulaire</div>
-                        <div class="editor-question" style="order: 1" id="js-container1">
-                            <div class="question-counter"></div>
-                            <div onclick="destroyInput(1)" class="question-delete"><img src="img/chat.png" width="32px"
-                                    height="32px" alt="delete">
-                            </div>
-                            <div onclick="slideUp(1)" class="question-slide slide-up"><img class="chevron-up" src="img/down-chevron.png" width="20px" height="20px" alt="delete"></div>
-                            <div onclick="slideDown(1)" class="question-slide slide-down"><img
-                                    src="img/down-chevron.png" width="20px" height="20px" alt="delete"></div>
-                            <label class="question-label" contenteditable>Raison sociale de l' entreprise</label>
-                            <h4 onclick="updateDescription(1)" class="question-sub" contenteditable>Cliquez ici pour
-                                ajouter
-                                une description</h4>
-                            <input class="question-input" type="text" placeholder="Réponse">
-                            <div class="question-required">
-                                <div onclick="setCheckboxStatus(1)" class="required-checkbox">
-                                    <div class="required-clippath"></div>
-                                </div>
-                                <div class="required-label">Obligatoire</div>
-                            </div>
+                            <div class="required-label">Obligatoire</div>
                         </div>
                     </div>
-            </div>
-            <%- include('../includes/succes.ejs') %>
-    </body>
-
-    <script src="js/form.js"></script>
-    <script src="js/index.js"></script>
-    <script>
-        function saveForm() {
-            let sondage = {
-                nom: document.getElementById('js-title').innerHTML,
-                titre: document.getElementById('js-title').innerHTML,
-                parution: false
-            }
-            let questions = formArray
-            try {
-                fetch(`https://cpme-rest-api.herokuapp.com/api/sondages`, {
-                    headers: {
-                        'Content-type': 'application/json',
-                        'auth-token': getCookie('token')
-                    },
-                    method: "POST",
-                    body: JSON.stringify(sondage)
-                })
-                    .then((response) => response.json())
-                    .then((response) => {
-                        for (let i = 0; i < questions.length; i++) {
-                            questions[i].form_id = response._id;
-                            questions[i].label = document.getElementsByClassName('question-label')[i].innerHTML;
-                            fetch(`https://cpme-rest-api.herokuapp.com/api/questions`, {
-                                headers: {
-                                    'Content-type': 'application/json',
-                                    'auth-token': getCookie('token')
-                                },
-                                method: "POST",
-                                body: JSON.stringify(questions[i])
-                            })
-                        }
-                    })
-                let message = 'Sondage ajoutée, cliquez revenir à la liste des sondages';
-                let redirecton = `sondages`;
-                showModalSucces(message, redirecton)
-
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    </script>
-
-    </html>
+                    <input type="hidden" name="total" id="form-length" value="1">
+                </form>
+        </div>
+        <script src="js/form.js"></script>
+        <%- include('../includes/footer.ejs') %>

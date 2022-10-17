@@ -284,6 +284,7 @@ exports.getSondage = async (req, res) => {
         })
         res.render('pages/sondages/profil', { title: 'Profil sondage', sondage: fetch_sondage.data, questions: fetch_questions.data, reponses: fetch_reponses.data, message: req.flash('message') })
     } catch (error) {
+        console.log(error.message);
         req.flash('message', 'Une erreur est survenue')
         res.redirect('/')
     }

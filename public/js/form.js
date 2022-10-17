@@ -76,6 +76,10 @@ function addQuestion(input) {
     // updateQuestionCount();
     counter++;
 }
+function modifyLength() {
+    let field = document.getElementById('form-length');
+    field.value = formArray.length
+}
 
 function addItemToArray(label, type, order, id) {
     let item = {
@@ -91,6 +95,8 @@ function addItemToArray(label, type, order, id) {
         form_id: ''
     }
     formArray.push(item);
+    modifyLength();
+
 }
 
 function addItemtoHtml(label, type, order, id) {
@@ -141,6 +147,7 @@ function generateQuestion(label, type, order, id) {
     createLabel(label, id);
     createDescription(id);
     createInput(type, id);
+    createType(type, id);
     createRequired(id);
     createDelete(id);
     createDown(id);
@@ -170,17 +177,18 @@ function createCounter(order, id) {
 }
 
 function createLabel(label, id) {
-    let newLabel = document.createElement("LABEL");
+    let newLabel = document.createElement("INPUT");
     newLabel.setAttribute("class", "question-label");
-    newLabel.setAttribute("contenteditable", "true");
+    newLabel.setAttribute("name", `label_${formArray.length - 1}`);
+    newLabel.setAttribute("value", label);
     document.getElementById(`js-container${id}`).appendChild(newLabel);
-    newLabel.textContent = label;
 }
 
 function createDescription(id) {
-    let newDescription = document.createElement("H4");
+    let newDescription = document.createElement("INPUT");
     newDescription.setAttribute("class", "question-sub");
-    newDescription.setAttribute("contenteditable", "true");
+    newDescription.setAttribute("name", `description_${formArray.length - 1}`)
+    newDescription.setAttribute("placeholder", `description`)
     newDescription.setAttribute("onclick", `updateDescription(${id})`)
     document.getElementById(`js-container${id}`).appendChild(newDescription);
     newDescription.textContent = "Cliquez ici pour ajouter une description";
@@ -289,6 +297,15 @@ function createInput(type, id) {
     }
 }
 
+function createType(type, id) {
+    let container = document.getElementById(`js-container${id}`);
+    let newType = document.createElement("INPUT");
+    newType.setAttribute("name", `type_${formArray.length - 1}`);
+    newType.setAttribute("type", `hidden`);
+    newType.setAttribute("value", type);
+    container.appendChild(newType);
+}
+
 function createRequired(id) {
     let container = document.getElementById(`js-container${id}`);
     let newElement = document.createElement("DIV");
@@ -378,6 +395,8 @@ function updateQuestionOrder() {
 // Delete input
 function destroyInput(id) {
     if (window.confirm('Supprimer cette question ?')) {
+
+
         // Get item from array
         let item = formArray.find(el => el.id === id)
         // Adjust other question order if required
@@ -387,6 +406,8 @@ function destroyInput(id) {
             return el.id;
         }).indexOf(id);
         formArray.splice(index, 1);
+
+        modifyLength();
         // Remove item from DOM
         let question = document.getElementById(`js-container${id}`);
         htmlContent.removeChild(question);
@@ -426,7 +447,7 @@ function destroyExistingInput(id) {
         } catch (error) {
             console.log(error.message);
         }
- 
+
     }
 }
 
@@ -446,7 +467,7 @@ function slideUp(id) {
         //Array logic
         previousItem.order = item.order;
         item.order = newOrder;
-}
+    }
 }
 
 function slideDown(id) {
@@ -563,7 +584,7 @@ function fillArray(form_id) {
         let type = questions[i].getAttribute('data-type');
         let id = questions[i].getAttribute('data-id');
         formArray.push({
-            id: i +1,
+            id: i + 1,
             _id: id,
             label: label,
             required: required,

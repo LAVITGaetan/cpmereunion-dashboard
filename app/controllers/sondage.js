@@ -7,22 +7,46 @@ const instance = axios.create({
 exports.addSondage = (req, res) => {
     const token = req.cookies.token;
     let payload = {
-        nom: req.body.nom,
+        nom: 'Nouveau sondage',
         titre: req.body.titre,
-        parution: req.body.parution,
+        parution: false,
     }
+
     instance.post(`/sondages`, payload, {
         headers: {
             'auth-token': token,
         }
     })
         .then((response) => {
-            req.flash('message', `${req.body.nom} ajouté à la liste des sondages`);
+            let question_payload = [];
+            for (let i = 0; i < req.body.total; i++) {
+                question = {
+                    label: req.body[`label_${i}`],
+                    description: req.body[`description_${i}`],
+                    order: i + 1,
+                    required: req.body[`required_${i}`] === 'on',
+                    form_id: response.data._id,
+                    type: req.body[`type_${i}`]
+                }
+                question_payload.push(question)
+            }
+            console.log(question_payload);
+            try {
+                axios.all(question_payload.map((item) => instance.post(`/questions`, item, {
+                    headers: {
+                        'auth-token': token
+                    }
+                }).then(response => console.log(response.data))))
+            } catch (error) {
+                console.log(error);
+            }
+            req.flash('message', `Nouveau sondage crée`);
             res.redirect(`/sondages`)
         })
         .catch((error) => {
             console.log(error);
-            res.send({ error: 'Cannot add sondage' })
+            req.flash('message', `Une erreur est survenue lors de la création du sondage`);
+            res.redirect('/sondages')
         })
 }
 
@@ -61,7 +85,8 @@ exports.deleteSondage = (req, res) => {
         })
         .catch((error) => {
             req.flash('message', `Impossible de supprimer le sondage`);
-            res.redirect(`/sondages`)})
+            res.redirect(`/sondages`)
+        })
 }
 
 exports.editParution = (req, res) => {

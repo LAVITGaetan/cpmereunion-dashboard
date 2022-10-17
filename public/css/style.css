@@ -1254,7 +1254,11 @@ border-radius: 5px;
   margin-bottom: 1em;
   padding: 5px 10px;
   position: relative;
+  width: 100%;
   display: block;
+  outline: none;
+  border: none;
+  background-color: #f1f4f5;
 }
 
 .question-sub {
@@ -1263,8 +1267,8 @@ border-radius: 5px;
   margin-bottom: 1em;
   border: 2px dotted #081d2e20;
   padding: 5px;
-  width: fit-content;
   position: relative;
+  width: 100%;
 }
 
 .question-label:before {
@@ -1283,6 +1287,7 @@ border-radius: 5px;
   border: 2px solid #081d2e10;
   font-size: 16px;
   padding: 0 5px;
+  max-width: 300px;
 }
 
 .question-required {
@@ -1298,6 +1303,7 @@ border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
+  accent-color: var(--clrCta);
   border: 2px solid var(--clrMain);
 }
 
