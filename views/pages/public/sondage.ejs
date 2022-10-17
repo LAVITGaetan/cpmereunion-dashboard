@@ -14,7 +14,10 @@
             <label class="question-label">
               <%=question.label%>
             </label>
-            <% if (question.type==='text' || question.type==='entreprise' || question.type==='identite' ||
+            <p class="question-description">
+              <%=question.description%>
+            </p>
+            <% if (question.type==='text' || question.type==='entreprise' || question.type==='identite' || question.type==='email' ||
               question.type==='telephone' ) { %>
               <input  <%= question.required? 'required':''%> placeholder="Votre réponse" class="question-input" type="text" name="<%=question._id%>">
               <% } %>

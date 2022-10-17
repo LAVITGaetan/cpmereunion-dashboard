@@ -1173,6 +1173,12 @@ border-radius: 5px;
   padding: 50px 5%;
 }
 
+.question-description {
+  font-size: 14px;
+  color: #081d2e;
+  margin-bottom: 10px;
+}
+
 .result-container {
   width: 100%;
   padding: 50px 5%;

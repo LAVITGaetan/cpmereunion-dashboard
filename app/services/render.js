@@ -317,17 +317,17 @@ exports.editSondage = async (req, res) => {
 exports.resultSondage = async (req, res) => {
     const token = req.cookies.token;
     try {
-        let fetch_sondage = await instance.get(`/sondages/${req.params.id}`, {
+        let fetch_sondage = await instance.get(`/sondages/${req.query.id}`, {
             headers: {
                 'auth-token': token
             }
         })
-        let fetch_questions = await instance.get(`/sondages/${req.params.id}/questions`, {
+        let fetch_questions = await instance.get(`/sondages/${req.query.id}/questions`, {
             headers: {
                 'auth-token': token
             }
         })
-        let fetch_reponses = await instance.get(`/sondages/${req.params.id}/reponses`, {
+        let fetch_reponses = await instance.get(`/sondages/${req.query.id}/reponses`, {
             headers: {
                 'auth-token': token
             }

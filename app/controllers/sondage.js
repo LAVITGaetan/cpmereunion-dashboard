@@ -11,7 +11,6 @@ exports.addSondage = (req, res) => {
         titre: req.body.titre,
         parution: false,
     }
-
     instance.post(`/sondages`, payload, {
         headers: {
             'auth-token': token,
