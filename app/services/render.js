@@ -53,7 +53,7 @@ exports.getAdherent = async (req, res) => {
         })
         res.render('pages/adherents/profil', { title: 'Profil adhérent', adherent: fetch.data, contacts: fetch_contacts.data, message: req.flash('message') })
     } catch (error) {
-        req.flash('message', 'Connectez-vous pour accéder à cette page')
+        req.flash('message', 'Une erreur est survenue')
         res.redirect('/')
     }
 }
@@ -72,7 +72,7 @@ exports.editAdherent = async (req, res) => {
         })
         res.render('pages/adherents/edit', { title: 'Modifier un adhérent', adherent: fetch.data, message: req.flash('message') })
     } catch (error) {
-        req.flash('message', 'Connectez-vous pour accéder à cette page')
+        req.flash('message', 'Une erreur est survenue')
         res.redirect('/')
     }
 }
@@ -87,7 +87,7 @@ exports.addAdherentContact = async (req, res) => {
         })
         res.render('pages/adherents/add-contact', { title: 'Ajouter un contact', adherent: fetch.data, message: req.flash('message') })
     } catch (error) {
-        req.flash('message', 'Connectez-vous pour accéder à cette page')
+        req.flash('message', 'Une erreur est survenue')
         res.redirect('/')
     }
 }
@@ -111,7 +111,7 @@ exports.editAdherentContact = async (req, res) => {
 
         res.render('pages/adherents/edit-contact', { title: 'Modifier un contact', adherent: fetch.data, contact: fetch_contact.data, message: req.flash('message') })
     } catch (error) {
-        req.flash('message', 'Connectez-vous pour accéder à cette page')
+        req.flash('message', 'Une erreur est survenue')
         res.redirect('/')
     }
 }
@@ -132,7 +132,7 @@ exports.getMandats = async (req, res) => {
         })
         res.render('pages/mandats/liste', { title: 'Liste des mandats', mandats: fetch.data, representations: fetch_representations.data, message: req.flash('message') })
     } catch (error) {
-        req.flash('message', 'Connectez-vous pour accéder à cette page')
+        req.flash('message', 'Une erreur est survenue')
         res.redirect('/')
     }
 }
@@ -157,7 +157,7 @@ exports.getMandat = async (req, res) => {
         })
         res.render('pages/mandats/profil', { title: 'Profil mandat', mandat: fetch_mandat.data, mandataires: fetch_mandataires.data, representations: fetch_representations.data, message: req.flash('message') })
     } catch (error) {
-        req.flash('message', 'Connectez-vous pour accéder à cette page')
+        req.flash('message', 'Une erreur est survenue')
         res.redirect('/')
     }
 }
@@ -176,7 +176,7 @@ exports.editMandat = async (req, res) => {
         })
         res.render('pages/mandats/edit', { title: 'Modifier un mandat', mandat: fetch.data, message: req.flash('message') })
     } catch (error) {
-        req.flash('message', 'Connectez-vous pour accéder à cette page')
+        req.flash('message', 'Une erreur est survenue')
         res.redirect('/')
     }
 }
@@ -197,7 +197,7 @@ exports.getMandataires = async (req, res) => {
         })
         res.render('pages/mandataires/liste', { title: 'Liste des mandataires', mandataires: fetch.data, representations: fetch_representations.data, message: req.flash('message') })
     } catch (error) {
-        req.flash('message', 'Connectez-vous pour accéder à cette page')
+        req.flash('message', 'Une erreur est survenue')
         res.redirect('/')
     }
 }
@@ -223,7 +223,7 @@ exports.getMandataire = async (req, res) => {
         res.render('pages/mandataires/profil', { title: 'Profil mandataire', mandataire: fetch_mandataire.data, mandats: fetch_mandats.data, representations: fetch_representations.data, message: req.flash('message') })
 
     } catch (error) {
-        req.flash('message', 'Connectez-vous pour accéder à cette page')
+        req.flash('message', 'Une erreur est survenue')
         res.redirect('/')
     }
 }
@@ -242,7 +242,7 @@ exports.editMandataire = async (req, res) => {
         })
         res.render('pages/mandataires/edit', { title: 'Modifier un mandataire', mandataire: fetch.data, message: req.flash('message') })
     } catch (error) {
-        req.flash('message', 'Connectez-vous pour accéder à cette page')
+        req.flash('message', 'Une erreur est survenue')
         res.redirect('/')
     }
 }
@@ -256,9 +256,10 @@ exports.getSondages = async (req, res) => {
                 'auth-token': token
             }
         })
-        res.render('pages/sondages/liste', { title: 'Liste des sondages', sondages: fetch.data, message: req.flash('message') })
+        res.render('pages/sondages/liste', { title: 'Liste des sondages', sondages: fetch.data,
+         message: req.flash('message') })
     } catch (error) {
-        req.flash('message', 'Connectez-vous pour accéder à cette page')
+        req.flash('message', 'Une erreur est survenue')
         res.redirect('/')
     }
 }
@@ -283,7 +284,7 @@ exports.getSondage = async (req, res) => {
         })
         res.render('pages/sondages/profil', { title: 'Profil sondage', sondage: fetch_sondage.data, questions: fetch_questions.data, reponses: fetch_reponses.data, message: req.flash('message') })
     } catch (error) {
-        req.flash('message', 'Connectez-vous pour accéder à cette page')
+        req.flash('message', 'Une erreur est survenue')
         res.redirect('/')
     }
 }
@@ -307,24 +308,47 @@ exports.editSondage = async (req, res) => {
         })
         res.render('pages/sondages/edit', { title: 'ProfEditer un sondage', sondage: fetch_sondage.data, questions: fetch_questions.data, message: req.flash('message') })
     } catch (error) {
-        req.flash('message', 'Connectez-vous pour accéder à cette page')
+        req.flash('message', 'Une erreur est survenue')
         res.redirect('/')
     }
 }
 
-exports.resultSondage = (req, res) => {
+exports.resultSondage = async (req, res) => {
     const token = req.cookies.token;
-    res.render('pages/sondage/result', { title: 'Réponses au sondage' })
+    try {
+        let fetch_sondage = await instance.get(`/sondages/${req.params.id}`, {
+            headers: {
+                'auth-token': token
+            }
+        })
+        let fetch_questions = await instance.get(`/sondages/${req.params.id}/questions`, {
+            headers: {
+                'auth-token': token
+            }
+        })
+        let fetch_reponses = await instance.get(`/sondages/${req.params.id}/reponses`, {
+            headers: {
+                'auth-token': token
+            }
+        })
+        res.render('pages/sondages/result', { title: 'Résultats du sondage', sondage: fetch_sondage.data, questions: fetch_questions.data, reponses: fetch_reponses.data, message: req.flash('message') })
+    } catch (error) {
+        console.log(error);
+        req.flash('message', 'Une erreur est survenue')
+        res.redirect('/')
+    }
 }
 
 exports.publicLogin = (req, res) => {
-    res.render('pages/public/login-sondage', { message: req.flash('message'), title:'Connexion' })
+    res.render('pages/public/login-sondage', { message: req.flash('message'), title: 'Connexion' })
 }
 
 exports.publicSondages = async (req, res) => {
+    const token = req.cookies.token;
+    if (!token) return res.redirect('/')
     try {
         let fetch = await instance.get(`/sondages`)
-        res.render('pages/public/liste-sondages', { sondages: fetch.data, message: req.flash('message'), title:'Sondages' })
+        res.render('pages/public/liste-sondages', { sondages: fetch.data, message: req.flash('message'), title: 'Sondages' })
     } catch (error) {
         console.log(error);
         req.flash('message', 'Une erreur est survenue')
@@ -337,7 +361,7 @@ exports.publicSondage = async (req, res) => {
     try {
         let fetch = await instance.get(`/sondages/${req.params.id}`)
         let fetch_questions = await instance.get(`/sondages/${req.params.id}/questions`)
-        res.render('pages/public/sondage', { sondage: fetch.data, questions: fetch_questions.data, message: req.flash('message'), title:'Sondage' })
+        res.render('pages/public/sondage', { sondage: fetch.data, questions: fetch_questions.data, message: req.flash('message'), title: 'Sondage' })
     } catch (error) {
         console.log(error);
         req.flash('message', 'Une erreur est survenue')

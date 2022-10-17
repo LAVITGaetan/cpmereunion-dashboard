@@ -1,17 +1,19 @@
 <%- include('../includes/header.ejs') %>
 <%- include('../includes/message.ejs') %>
 <div class="container-question">
-<h1 class="sondage-title">Connectez vous pour accéder aux sondages</h1>
+<h1 class="sondage-title">Connexion</h1>
 
 <form class="public-form" action="/repondant/login" method="post">
     <div class="form-group">
-        <label class="label">Email de connexion</label>
-        <input class="input" type="text" name="email">
+        <label class="login-label">Email de connexion</label>
+        <input class="login-input" type="text" name="email">
     </div>
     <div class="form-group">
-        <label class="label">Mot de passe</label>
-    <input class="input" type="text" name="identifiant">
+        <label class="login-label">Mot de passe</label>
+    <input class="login-input" type="text" name="identifiant">
 </div>
     <input class="public-cta" type="submit" value="Me connecter">
 </form>
 </div>
+
+<%- include('../includes/footer.ejs') %>

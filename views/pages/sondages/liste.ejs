@@ -19,15 +19,15 @@
                 <% sondages.forEach(sondage=> { %>
                     <div class="sondage card">
                         <div class="card-header"></div>
-                        <div class="card-figure">
-                                <img class="card-image" src="https://lavit-gaetan.com/wp-content/uploads/2021/11/cropped-logo_cpme.jpg">
-                        </div>
+
                         <div class="card-title js-nom">
                             <%= sondage.nom %>
                         </div>
-                        <div class="card-subtitle">
-                            Nombre de réponses
+                        <div class="card-actions">
+                            <div class="card-action" onclick="copySondageUrl('<%=sondage._id%>')"><img src="img/link.png" width="16px" height="16px" alt="lien"></div>
+                            <div class="card-action"><img src="img/iframe.png" width="16px" height="16px" alt="iframe"></div>
                         </div>
+
                         <a href="/profil-sondage?id=<%= sondage._id %>" class="no-decoration card-edit">
                             <img src="img/edit.png" width="12px" height="12px" alt="edit">
                         </a>
@@ -41,21 +41,6 @@
             
     </body>
     <script>
-        function deleteSondage(id) {
-            if (confirm('Voulez-vous vraiment supprimer cette adhérent ?')) {
-                fetch(`https://cpme-rest-api.herokuapp.com/api/sondages/${id}/questions`, {
-                    method: "DELETE",
-                    headers: {
-                        'Content-type': 'application/json'
-                    }
-                })
-            }
-            setTimeout(() => {
-                alert('Sondage supprimé')
-                document.location.reload()
-            }, 100);
-        }
-
         function searchSondage() {
             let query = document.getElementById('search').value.toLowerCase();
             let item = document.getElementsByClassName('sondage');

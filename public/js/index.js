@@ -135,3 +135,17 @@ function showModalRepresentation(id, titre, ressource, id_mandat, id_mandataire)
     }
     modal.style.display = 'block';
 }
+
+function showResponses(id) {
+    let item = document.getElementById(id)
+    if (item.classList.contains('active')) {
+        item.classList.remove('active')
+    }
+    else {
+        item.classList.add('active')
+    }
+}
+
+function copySondageUrl(id) {
+    alert(`https://cpmereunion-dashboard.herokuapp.com/public/sondages`)
+}

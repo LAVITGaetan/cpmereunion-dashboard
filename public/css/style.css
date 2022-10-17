@@ -181,6 +181,22 @@ body {
   height: 64px;
 }
 
+.card-actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.card-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: #081d2e;
+}
+
 .card-figure {
   width: 64px;
   height: 64px;
@@ -1136,23 +1152,8 @@ display: none;
 margin: auto;
 width: 500px;
 padding: 50px;
-background-color: #081d2e;
+background-color: #fff;
 border-radius: 5px;
-}
-
-.label {
-  font-size: 16px;
-  color: #fff;
-  margin-bottom: 10px;
-  font-weight: 600;
-}
-
-.input {
-  outline: none;
-  border: none;
-  height: 40px;
-  width: 100%;
-  background-color: "#fff";
 }
 
 .public-cta {
@@ -1163,6 +1164,8 @@ border-radius: 5px;
   color: #fff;
   font-size: 16px;
   font-weight: 600;
+  outline: none;
+  border: none;
 }
 
 .question-container {
@@ -1757,6 +1760,17 @@ border-radius: 5px;
   transform: rotate(180deg)
 }
 
+.hidden {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+.sondage > .card-title {
+  margin-top: 15px;
+}
 /* RESPONSIVE TABLETTE */
 
 @media screen and (max-width:1080px) {

@@ -1,104 +1,24 @@
 <%- include('../includes/header.ejs') %>
+    <%- include('../includes/message.ejs') %>
 
+        <body>
+                <div class="content">
+            <a href="/sondages" class="cta">Retour</a>
 
-    <body>
-        <%- include('../includes/navbar.ejs') %>
-            <div class="content">
-<h1 class="header-title">Liste des adhérents</h1>
-            <div class="flex-between">
-                <div class="searchbox">
-                    <input class="searchbox-input" type="text" placeholder="Recherche" onkeyup="searchAdherent()"
-                        id="search"></input>
-                    <div onclick="searchSondage()" class="searchbox-action"><img width="20px" height="20px"
-                            src="/img/search.png" alt="search"></div>
+                    <h1 class="title">Resultats du sondage</h1>
+                    <% questions.forEach(question=> { %>
+                        <div class="result-container" onclick="showResponses('<%=question._id%>')">
+                            <span>
+                                <%=question.label%>
+                            </span>
+                            <div id="<%=question._id%>" class="hidden">
+                                <%reponses.filter(el=> el.question_id === question._id).forEach(reponse => { %>
+                                    <span>
+                                        <%=reponse.value%>
+                                    </span>
+                                    <% }) %>
+                            </div>
+                        </div>
+                        <% }) %>
                 </div>
-                <a href="/add-sondage" class="cta">Nouveau sondage</a>
-            </div>
-            <div class="flex">
-                <% adherents.forEach(adherent=> { %>
-                    <div class="adherent card">
-                        <div class="card-header"></div>
-                        <div class="card-figure">
-                            <% if (adherent.logo ) { %>
-                                <img class="card-image" src="upload/<%= adherent.logo %>">
-                                <% }else{ %>
-                                    <img class="add-photo" width="24px" height="24px" src="img/no-photo.png">
-                                    <% } %>
-
-                        </div>
-                        <div class="card-title js-entreprise">
-                            <%= adherent.entreprise %>
-                        </div>
-                        <div class="card-subtitle js-section">
-                            <%= adherent.section %>
-                        </div>
-                        <a href="/profil-adherent?id=<%= adherent._id %>" class="no-decoration card-edit">
-                            <img src="img/edit.png" width="12px" height="12px" alt="edit">
-                        </a>
-                        <div class="card-delete" onclick="deleteAdherent('<%= adherent._id %>')">
-                            <img src="img/delete.png" width="12px" height="12px" alt="delete">
-                        </div>
-                    </div>
-                    <% }) %>
-
-            </div>
-            </div>
-            
-    </body>
-    <script>
-
-        function closeModal() {
-            let modal = document.getElementById('modal');
-            modal.style.display = "none";
-        }
-
-        function deleteAdherent(id) {
-            if (confirm('Voulez-vous vraiment supprimer cette adhérent ?')) {
-                console.log(id);
-                fetch(`https://cpme-rest-api.herokuapp.com/api/adherents/${id}`, {
-                    method: "DELETE",
-                    headers: {
-                        'Content-type': 'application/json'
-                    }
-                })
-            }
-            setTimeout(() => {
-                alert('Adhérent supprimé')
-                document.location.reload()
-            }, 100);
-        }
-
-        function changeFilter(id) {
-            document.getElementsByClassName('filter-selected')[0].classList.remove('filter-selected');
-            document.getElementsByClassName('filter-item')[id].classList.add('filter-selected');
-            searchAdherent();
-        }
-
-        function searchAdherent() {
-            let query = document.getElementById('search').value.toLowerCase();
-            let item = document.getElementsByClassName('adherent');
-            let length = item.length;
-            let filter = document.getElementsByClassName('filter-selected')[0].innerHTML.toLowerCase();
-            for (let i = 0; i < length; i++) {
-                let entreprise = item[i].getElementsByClassName('js-entreprise')[0].innerHTML.toLowerCase();
-                let section = item[i].getElementsByClassName('js-section')[0].innerHTML.toLowerCase();
-                if (filter === "tous" || filter === section.replace(/\s/g, '')) {
-                    if (entreprise.includes(query)) {
-                        item[i].style.display = 'table-row';
-                        console.log('item matched');
-                    }
-                    else {
-                        item[i].style.display = 'none';
-                        console.log('item hidden by query');
-                    }
-                } else {
-                    item[i].style.display = 'none';
-                    console.log('item hidden by section');
-                }
-
-            }
-        }
-    </script>
-    <script src="/js/index.js"></script>
-
-    </html>
+                <script src="../js/index.js"></script>

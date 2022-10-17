@@ -91,6 +91,7 @@ app.get('/sondages', services.getSondages)
 app.get('/profil-sondage', services.getSondage)
 app.get('/add-sondage', services.addSondage)
 app.get('/edit-sondage', services.editSondage)
+app.get('/results', services.resultSondage)
 
 // Routes public
 app.get('/public', services.publicLogin)
