@@ -310,18 +310,16 @@ function createType(type, id) {
 function createRequired(id) {
     let container = document.getElementById(`js-container${id}`);
     let newElement = document.createElement("DIV");
-    let newCheckbox = document.createElement("DIV");
-    let newClippath = document.createElement("DIV");
+    let newCheckbox = document.createElement("INPUT");
     let newText = document.createElement("DIV");
     newElement.setAttribute("class", "question-required");
-    newElement.setAttribute("onclick", `setCheckboxStatus(${id})`)
     newCheckbox.setAttribute("class", "required-checkbox");
-    newClippath.setAttribute("class", "required-clippath");
+    newCheckbox.setAttribute("type", "radio");
+    newCheckbox.setAttribute("name", `required_${formArray.length - 1}`);
     newText.setAttribute("class", "required-label");
     newText.innerHTML = "Obligatoire";
     container.appendChild(newElement);
     container.getElementsByClassName('question-required')[0].appendChild(newCheckbox);
-    container.getElementsByClassName('required-checkbox')[0].appendChild(newClippath);
     container.getElementsByClassName('question-required')[0].appendChild(newText);
 }
 

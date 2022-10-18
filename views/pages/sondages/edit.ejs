@@ -1,205 +1,37 @@
 <%- include('../includes/header.ejs') %>
+    <%- include('../includes/navbar.ejs') %>
+        <div class="content-form">
+            <%- include('../includes/form-tools.ejs') %>
+                <form action="/sondages/edit" class="form-editor scrollbar" id="js-content" method="POST">
+                    <input type="text" name="titre" class="editor-title" contenteditable id="js-title"
+                        value="Titre du sondage" />
+                    <input type="submit" value="Enregistrer le formulaire" class="editor-save" onclick="saveForm()">
+<% questions.forEach(question => { %>
+    <div class="editor-question" style="order: 1" id="js-container1">
+        <div class="question-counter"><%=question.order%></div>
+        <div onclick="destroyInput(1)" class="question-delete"><img src="img/chat.png" width="32px"
+                height="32px" alt="delete">
+        </div>
+        <div onclick="slideUp(1)" class="question-slide slide-up"><img class="chevron-up"
+                src="img/down-chevron.png" width="20px" height="20px" alt="delete"></div>
+        <div onclick="slideDown(1)" class="question-slide slide-down"><img src="img/down-chevron.png"
+                width="20px" height="20px" alt="delete"></div>
+        <input name="label_<%=question.order - 1%>" class="question-label" type="text"
+            value="<%=question.label%>">
+        <input name="type_<%=question.order - 1%>" type="hidden" value="text" class="question-type">
+        <input name="description_<%=question.order - 1%>" class="question-sub" placeholder="description" value="<%=question.description%>" />
+        <input class="question-input" type="text" placeholder="Réponse">
+        <div class="question-required">
+            <input <% if (question.required) { %>
+             <%='checked'%>
+            <% } %> class="required-checkbox" type="radio" name="required_<%=question.order - 1%>">
 
-    <body onload="updateQuestionCount()">
-        <%- include('../includes/navbar.ejs') %>
-            <div class="content-form">
-
-                <%- include('../includes/form-tools.ejs') %>
-
-                    <div class="form-editor scrollbar" id="js-content">
-                        <h2 class="editor-title" contenteditable id="js-title">
-                            <%= sondage.titre %>
-                        </h2>
-                        <div class="editor-save" onclick="editForm('<%= sondage._id %>')">Sauvegarder le formulaire
-                        </div>
-                        <% questions.forEach(question=> { %>
-                            <div data-id="<%=question._id%>" data-label="<%=question.label%>"
-                                data-set="<%=question.set%>" data-content="<%=question.content%>"
-                                data-type="<%=question.type%>" data-required="<%=question.required%>"
-                                class="editor-question" style="order:<%= question.order %>"
-                                id="js-container<%= question.order %>">
-                                <div class="question-counter"></div>
-                                <div onclick="destroyExistingInput('<%= question._id %>')" class="question-delete"><img
-                                        src="img/chat.png" width="32px" height="32px" alt="delete">
-                                </div>
-                                <div onclick="slideUp(<%= question.order %>)" class="question-slide slide-up"><img
-                                        src="img/down-chevron.png" width="20px"
-                                        height="20px" alt="delete"></div>
-                                <div onclick="slideDown(<%= question.order %>)" class="question-slide slide-down"><img
-                                        src="img/down-chevron.png" width="20px" height="20px" alt="delete"></div>
-                                <label class="question-label" contenteditable>
-                                    <%= question.label %>
-                                </label>
-                                <% if (question.description.set) { %>
-                                    <h4 onclick="updateDescription('<%= question.order %>')" class="question-sub"
-                                        contenteditable>
-                                        <%= question.description.content %>
-                                    </h4>
-                                    <% }%>
-                                        <% switch (question.type) { case 'text' : %>
-                                            <input type="text" class="question-input" placeholder="Réponse">
-                                            <% break; case 'email' : %>
-                                                <input type="text" class="question-input" placeholder="Réponse">
-                                                <% break; case 'identite' : %>
-                                                    <input type="text" class="question-input" placeholder="Réponse">
-                                                    <% break; case 'raison-sociale' : %>
-                                                    <input type="text" class="question-input" placeholder="Réponse">
-                                                    <% break; case 'date' : %>
-                                                        <input type="date" class="question-input">
-                                                        <% break; case 'telephone' : %>
-                                                            <input type="text" class="question-input"
-                                                                placeholder="Réponse">
-                                                            <% break; case 'section' : %>
-                                                                <select class="question-select">
-                                                                    <option value="">Sélectionner une section</option>
-                                                                    <option class="select-option" value="artisanat">
-                                                                        artisanat</option>
-                                                                    <option class="select-option" value="commerce">
-                                                                        commerce
-                                                                    </option>
-                                                                    <option class="select-option" value="industrie">
-                                                                        industrie</option>
-                                                                    <option class="select-option" value="services">
-                                                                        services
-                                                                    </option>
-                                                                </select>
-                                                                <% break; case 'salaries' : %>
-                                                                    <select class="question-select">
-                                                                        <option value="">Sélectionner un nombre</option>
-                                                                        <option class="select-option" value="0 à 5">0 à
-                                                                            5
-                                                                            salariés</option>
-                                                                        <option class="select-option" value="6 à 10">6 à
-                                                                            10
-                                                                            salariés</option>
-                                                                        <option class="select-option" value="11 à 20">11
-                                                                            à
-                                                                            20
-                                                                            salariés</option>
-                                                                        <option class="select-option" value="21 à 50">21
-                                                                            à
-                                                                            50
-                                                                            salariés</option>
-                                                                        <option class="select-option"
-                                                                            value="plus de 51">
-                                                                            plus de
-                                                                            51 salariés</option>
-                                                                    </select>
-                                                                    <% break; case 'rgpd' : %>
-                                                                        <div class="radio-container"><input type="radio"
-                                                                                class="question-radio"
-                                                                                checked="true"><label
-                                                                                class="radio-label"
-                                                                                contenteditable="true">Oui</label></div>
-                                                                        <div class="radio-container"><input type="radio"
-                                                                                class="question-radio"><label
-                                                                                class="radio-label"
-                                                                                contenteditable="true">Non</label></div>
-                                                                                <% break; case 'radio' : %>
-                                                                                <div class="radio-container"><input type="radio"
-                                                                                        class="question-radio"
-                                                                                        checked="true"><label
-                                                                                        class="radio-label"
-                                                                                        contenteditable="true">Oui</label></div>
-                                                                                <div class="radio-container"><input type="radio"
-                                                                                        class="question-radio"><label
-                                                                                        class="radio-label"
-                                                                                        contenteditable="true">Non</label></div>
-                                                                        <% break; case 'telephone' : %>
-                                                                            <input type="text" class="question-input"
-                                                                                placeholder="Réponse">
-
-                                                                            <% break; default: break; } %>
-                                                                                <div class="question-required">
-                                                                                    <div onclick="setCheckboxStatus(<%= question.order %>)"
-                                                                                        class="required-checkbox <%if (question.required) {%>
-                                                                                            <%='required-selected'%>
-                                                                                       <% }%>">
-                                                                                        <div class="required-clippath">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="required-label">
-                                                                                        Obligatoire
-                                                                                    </div>
-                                                                                </div>
-                            </div>
-                            <% }) %>
-                    </div>
-            </div>
-            <%- include('../includes/succes.ejs') %>
-
-    </body>
-
-    <script src="js/form.js"></script>
-    <script src="js/api.js"></script>
-    <script src="js/index.js"></script>
-    <script>
-        counter = document.getElementsByClassName('editor-question').length
-        fillArray('<%=sondage._id%>')
-        function editForm(id) {
-            let sondage = {
-                nom: document.getElementById('js-title').innerHTML,
-                titre: document.getElementById('js-title').innerHTML,
-            }
-            for (let i = 0; i < formArray.length; i++) {
-                formArray[i].label = document.getElementsByClassName('question-label')[i].innerHTML
-            }
-            let questions = formArray.filter(el => el.old === 'old');
-            let newQuestions = formArray.filter(el => el.old !== 'old');
-            console.log(formArray);
-            console.log(questions);
-            console.log(newQuestions);
-            try {
-                fetch(`https://cpme-rest-api.herokuapp.com/api/sondages/${id}`, {
-                    headers: {
-                        'Content-type': 'application/json',
-                        'auth-token': getCookie('token')
-                    },
-                    method: "PATCH",
-                    body: JSON.stringify(sondage)
-                })
-                    .then((response) => response.json())
-                    .then((response) => {
-                        for (let i = 0; i < questions.length; i++) {
-                            fetch(`https://cpme-rest-api.herokuapp.com/api/questions/${questions[i]._id}`, {
-                                headers: {
-                                    'Content-type': 'application/json',
-                                    'auth-token': getCookie('token')
-                                },
-                                method: "PATCH",
-                                body: JSON.stringify(questions[i])
-                            })
-                                .then((response) => response.json())
-                                .then((response) => {
-                                    console.log(response);
-                                    console.log('Champ existant modifié' + questions[i]);
-
-                                })
-                        }
-                        for (let i = 0; i < newQuestions.length; i++) {
-                            newQuestions[i].form_id = id;
-                            fetch(`https://cpme-rest-api.herokuapp.com/api/questions`, {
-                                headers: {
-                                    'Content-type': 'application/json',
-                                    'auth-token': getCookie('token')
-                                },
-                                method: "POST",
-                                body: JSON.stringify(newQuestions[i])
-                            })
-                                .then((response) => response.json())
-                                .then((response) => {
-                                    console.log('Nouveau champ ajouté');
-                                })
-                        }
-                        console.log(response);
-                        let message = 'Sondage Modifié, cliquez revenir au sondage';
-                        let redirecton = `profil-sondage?id=<%=sondage._id%>`;
-                        showModalSucces(message, redirecton)
-                    })
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    </script>
-
-    </html>
+            <div class="required-label">Obligatoire</div>
+        </div>
+    </div>
+<% }) %>
+                    <input type="hidden" name="total" id="form-length" value="<%=questions.length%>">
+                </form>
+        </div>
+        <script src="js/form.js"></script>
+        <%- include('../includes/footer.ejs') %>
