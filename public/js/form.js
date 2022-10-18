@@ -416,6 +416,22 @@ function destroyInput(id) {
         // Update DOM
         updateQuestionCount();
         updateQuestionOrder();
+
+                        //Reset inputs
+                        let i = 0;
+                        formArray.forEach(el => {
+                            let newOrder = el.order - 1;
+                            const question = document.getElementsByClassName('editor-question')[`${i}`];
+                            let label = question.getElementsByClassName('question-label')[0]
+                            let description = question.getElementsByClassName('question-sub')[0]
+                            let type = question.getElementsByClassName('question-type')[0]
+                            let required = question.getElementsByClassName('required-checkbox')[0]
+                            label.setAttribute('name', `label_${newOrder}`);
+                            description.setAttribute('name', `description_${newOrder}`);
+                            type.setAttribute('name', `type_${newOrder}`);
+                            required.setAttribute('name', `required_${newOrder}`);
+                            i++
+                        })
     }
 }
 
