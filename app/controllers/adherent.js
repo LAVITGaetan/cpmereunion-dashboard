@@ -51,7 +51,7 @@ exports.editAdherent = (req, res) => {
         path = req.file.path.substring(7);
     }
     else {
-        path = '';
+        path = req.body.path;
     }
     let payload = {
         entreprise: req.body.entreprise,
