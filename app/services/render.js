@@ -307,7 +307,7 @@ exports.editSondage = async (req, res) => {
                 'auth-token': token
             }
         })
-        res.render('pages/sondages/edit', { title: 'ProfEditer un sondage', sondage: fetch_sondage.data, questions: fetch_questions.data, message: req.flash('message') })
+        res.render('pages/sondages/edit', { title: 'Editer un sondage', sondage: fetch_sondage.data, questions: fetch_questions.data, message: req.flash('message') })
     } catch (error) {
         req.flash('message', 'Une erreur est survenue')
         res.redirect('/')

@@ -7,6 +7,7 @@
                         value="Titre du sondage" />
                     <input type="submit" value="Enregistrer le formulaire" class="editor-save" onclick="saveForm()">
                     <div class="editor-question" style="order: 1" id="js-container1">
+                        <input type="hidden" class="old" name="old_0" value="true">
                         <div class="question-counter">1</div>
                         <div onclick="destroyInput(1)" class="question-delete"><img src="img/chat.png" width="32px"
                                 height="32px" alt="delete">
@@ -30,4 +31,5 @@
                 </form>
         </div>
         <script src="js/form.js"></script>
+
         <%- include('../includes/footer.ejs') %>

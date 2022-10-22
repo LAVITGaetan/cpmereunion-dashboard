@@ -648,9 +648,7 @@ body {
   bottom: 0;
 }
 
-.last-row:hover:after {
-  width: 100%;
-}
+
 
 .last-row-title {
   font-style: normal;
@@ -745,7 +743,7 @@ body {
 .legend-text {
   font-style: normal;
   font-family: Montserrat;
-  font-weight: bold;
+  font-weight: bold;  
   font-size: 16px;
   color: #081d2e;
   padding-left: 8px;
@@ -1134,7 +1132,7 @@ display: none;
   font-weight: bold;
   margin-bottom: 2.5em;
   background-color: #fff;
-  width: fit-content;
+  width: 100%;
   border: 2px solid #00c4cc20;
   padding: 10px;
 }
@@ -1151,6 +1149,7 @@ display: none;
 .public-form {
 margin: auto;
 width: 500px;
+max-width: 100%;
 padding: 50px;
 background-color: #fff;
 border-radius: 5px;
@@ -1339,7 +1338,7 @@ border-radius: 5px;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  margin: 50px;
+  justify-content: space-evenly;
 }
 
 .card-sondage {
@@ -1716,6 +1715,15 @@ border-radius: 5px;
   color: #081d2e;
 }
 
+.public-label {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 21px;
+  color: #081d2e;
+  margin-bottom: 1em;
+}
+
 .login-input {
   background: #ffffff;
   border: 2px solid rgba(10, 36, 57, 0.1);
@@ -1950,7 +1958,7 @@ border-radius: 5px;
     order: 2;
     max-width: none;
     margin: 20px 0;
-  }
+}
 
   .cta {
     margin: 20px 0;
@@ -2012,4 +2020,18 @@ border-radius: 5px;
     padding: 0;
     background-color: transparent;
   }
+
+  .sondage-title {
+    margin: 0 0 25px 0;
+    font-size: 18px;
+  }
+
+  .public-form {
+    padding: 20px;
+  }
+
+  .public-label {
+  font-size: 16px;
+  }
+  
 }

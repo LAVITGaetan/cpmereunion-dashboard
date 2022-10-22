@@ -51,25 +51,58 @@ exports.addSondage = (req, res) => {
 
 exports.editSondage = (req, res) => {
     const token = req.cookies.token;
+
     let payload = {
         nom: req.body.nom,
         titre: req.body.titre,
         parution: req.body.parution,
     }
+
     instance.patch(`/sondages/${req.params.id}`, payload, {
         headers: {
-            'auth-token': token,
+            'auth-token': token
         }
-    })
-        .then((response) => {
-            req.flash('message', `${req.body.nom} modifié`);
-            res.redirect(`/sondages`)
-        })
-        .catch((error) => {
+    }).then((response) => {
+        let question_payload = [];
+        for (let i = 0; i < req.body.total; i++) {
+            question = {
+                label: req.body[`label_${i}`],
+                description: req.body[`description_${i}`],
+                order: i + 1,
+                required: req.body[`required_${i}`] === 'on',
+                form_id: req.body.id,
+                type: req.body[`type_${i}`],
+                old: req.body[`old_${i}`],
+                _id: req.body[`id_${i}`] || ''
+            }
+            question_payload.push(question)
+        }
+        let old_questions = question_payload.filter(el => el.old === 'true');
+        let new_questions = question_payload.filter(el => el.old === 'false');
+        try {
+            axios.all(new_questions.map((item) => instance.post(`/questions`, item, {
+                headers: {
+                    'auth-token': token
+                }
+            }).then(response => console.log(response.data))))
+        } catch (error) {
             console.log(error);
-            res.send({ error: 'Cannot edit sondage' })
-        })
+        }
+        try {
+            axios.all(old_questions.map((item) => instance.patch(`/questions/${item._id}`, item, {
+                headers: {
+                    'auth-token': token
+                }
+            }).then(response => console.log(response.data))))
+        } catch (error) {
+            console.log(error);
+        }
+        req.flash('message', `Sondage ${req.body.titre} modifié.`)
+        return res.redirect(`/profil-sondage?id=${req.body.id}`)
+    }).catch(err => console.log(err))
+
 }
+
 
 exports.deleteSondage = (req, res) => {
     const token = req.cookies.token;

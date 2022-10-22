@@ -2,36 +2,48 @@
     <%- include('../includes/navbar.ejs') %>
         <div class="content-form">
             <%- include('../includes/form-tools.ejs') %>
-                <form action="/sondages/edit" class="form-editor scrollbar" id="js-content" method="POST">
+                <form action="/sondages/edit/<%=sondage._id%>" class="form-editor scrollbar" id="js-content"
+                    method="POST">
                     <input type="text" name="titre" class="editor-title" contenteditable id="js-title"
-                        value="Titre du sondage" />
+                        value="<%=sondage.titre%>" />
                     <input type="submit" value="Enregistrer le formulaire" class="editor-save" onclick="saveForm()">
-<% questions.forEach(question => { %>
-    <div class="editor-question" style="order: 1" id="js-container1">
-        <div class="question-counter"><%=question.order%></div>
-        <div onclick="destroyInput(1)" class="question-delete"><img src="img/chat.png" width="32px"
-                height="32px" alt="delete">
-        </div>
-        <div onclick="slideUp(1)" class="question-slide slide-up"><img class="chevron-up"
-                src="img/down-chevron.png" width="20px" height="20px" alt="delete"></div>
-        <div onclick="slideDown(1)" class="question-slide slide-down"><img src="img/down-chevron.png"
-                width="20px" height="20px" alt="delete"></div>
-        <input name="label_<%=question.order - 1%>" class="question-label" type="text"
-            value="<%=question.label%>">
-        <input name="type_<%=question.order - 1%>" type="hidden" value="text" class="question-type">
-        <input name="description_<%=question.order - 1%>" class="question-sub" placeholder="description" value="<%=question.description%>" />
-        <input class="question-input" type="text" placeholder="Réponse">
-        <div class="question-required">
-            <input <% if (question.required) { %>
-             <%='checked'%>
-            <% } %> class="required-checkbox" type="radio" name="required_<%=question.order - 1%>">
+                    <input type="hidden" name="id" value="<%=sondage._id%>">
+                    <input type="hidden" name="parution" value="<%=sondage.parution%>">
+                    <input type="hidden" name="nom" value="<%=sondage.nom%>">
+                    <% questions.forEach(question=> { %>
+                        <div class="editor-question" style="order: 1" id="js-container<%=question.order%>">
+                            <input type="hidden" class="old" name="old_<%=question.order - 1%>" value="true">
+                            <input type="hidden" class="id_question" name="id_<%=question.order - 1%>" value="<%=question._id%>">
+                            <div class="question-counter">
+                                <%=question.order%>
+                            </div>
+                            <div onclick="destroyInput(1)" class="question-delete"><img src="img/chat.png" width="32px"
+                                    height="32px" alt="delete">
+                            </div>
+                            <div onclick="slideUp(1)" class="question-slide slide-up"><img class="chevron-up"
+                                    src="img/down-chevron.png" width="20px" height="20px" alt="delete"></div>
+                            <div onclick="slideDown(1)" class="question-slide slide-down"><img
+                                    src="img/down-chevron.png" width="20px" height="20px" alt="delete"></div>
+                            <input name="label_<%=question.order - 1%>" class="question-label" type="text"
+                                value="<%=question.label%>">
+                            <input name="type_<%=question.order - 1%>" type="hidden" value="text" class="question-type">
+                            <input name="description_<%=question.order - 1%>" class="question-sub"
+                                placeholder="description" value="<%=question.description%>" />
+                            <input class="question-input" type="text" placeholder="Réponse">
+                            <div class="question-required">
+                                <input <% if (question.required) { %>
+                                <%='checked'%>
+                                    <% } %> class="required-checkbox" type="radio" name="required_<%=question.order -
+                                            1%>">
 
-            <div class="required-label">Obligatoire</div>
-        </div>
-    </div>
-<% }) %>
-                    <input type="hidden" name="total" id="form-length" value="<%=questions.length%>">
+                                            <div class="required-label">Obligatoire</div>
+                            </div>
+                        </div>
+                        <% }) %>
+                            <input type="hidden" name="total" id="form-length" value="<%=questions.length%>">
                 </form>
         </div>
         <script src="js/form.js"></script>
+        <script>fillArray('<%=sondage._id%>')
+        </script>
         <%- include('../includes/footer.ejs') %>

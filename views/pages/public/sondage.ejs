@@ -17,72 +17,78 @@
             <p class="question-description">
               <%=question.description%>
             </p>
-            <% if (question.type==='text' || question.type==='entreprise' || question.type==='identite' || question.type==='email' ||
-              question.type==='telephone' ) { %>
-              <input  <%= question.required? 'required':''%> placeholder="Votre réponse" class="question-input" type="text" name="<%=question._id%>">
-              <% } %>
-                <% if (question.type==='date' ) { %>
-                  <input  <%= question.required? 'required':''%> class="question-input" type="date" name="<%=question._id%>">
-                  <% } %>
-                    <% if (question.type==='salaries' ) { %>
-                      <select  <%= question.required? 'required':''%> name="<%=question._id%>" class="question-select">
-                        <option class="select-option" value="">Séléctionner un nombre</option>
-                        <option class="select-option" value="0 à 5">0 à 5 salariés</option>
-                        <option class="select-option" value="6 à 10">6 à 10 salariés</option>
-                        <option class="select-option" value="11 à 20">11 à 20 salariés</option>
-                        <option class="select-option" value="21 à 50">21 à 50 salariés</option>
-                        <option class="select-option" value="plus de 51">plus de 51 salariés</option>
-                      </select>
+            <% if (question.type==='text' || question.type==='raison-sociale' || question.type==='identite' ||
+              question.type==='email' || question.type==='telephone' ) { %>
+              <input <%=question.required? 'required' :''%> placeholder="Votre réponse" class="question-input"
+              type="text" name="<%=question._id%>">
+                <% } %>
+                  <% if (question.type==='date' ) { %>
+                    <input <%=question.required? 'required' :''%> class="question-input" type="date" name="
+                    <%=question._id%>">
                       <% } %>
-                        <% if (question.type==='section' ) { %>
-
-                          <select  <%= question.required? 'required':''%> class="question-select" name="<%=question._id%>">
-                            <option class="select-option" value="">Séléctionner une section</option>
-
-                            <option class="select-option" value="artisanat">artisanat</option>
-                            <option class="select-option" value="commerce">commerce</option>
-                            <option class="select-option" value="industrie">industrie</option>
-                            <option class="select-option" value="services">services</option>
+                        <% if (question.type==='salaries' ) { %>
+                          <select <%=question.required? 'required' :''%> name="<%=question._id%>"
+                              class="question-select">
+                              <option class="select-option" value="">Séléctionner un nombre</option>
+                              <option class="select-option" value="0 à 5">0 à 5 salariés</option>
+                              <option class="select-option" value="6 à 10">6 à 10 salariés</option>
+                              <option class="select-option" value="11 à 20">11 à 20 salariés</option>
+                              <option class="select-option" value="21 à 50">21 à 50 salariés</option>
+                              <option class="select-option" value="plus de 51">plus de 51 salariés</option>
                           </select>
                           <% } %>
-                            <% if (question.type==='secteur' ) { %>
-                              <select  <%= question.required? 'required':''%> name="<%=question._id%>" class="question-select">
-                                <option class="select-option" value="">Séléctionner une ville</option>
+                            <% if (question.type==='section' ) { %>
 
-                                <option class="select-option" value="les avirons">les avirons</option>
-                                <option class="select-option" value="bras-panon">bras-panon</option>
-                                <option class="select-option" value="entre-deux">entre-deux</option>
-                                <option class="select-option" value="etang-sale">etang-sale</option>
-                                <option class="select-option" value="petite-ile">petite-ile</option>
-                                <option class="select-option" value="plaine des palmistes">plaine des palmistes</option>
-                                <option class="select-option" value="le port">le port</option>
-                                <option class="select-option" value="la possession">la possession</option>
-                                <option class="select-option" value="saint-andre">saint-andre</option>
-                                <option class="select-option" value="saint-benoit">saint-benoit</option>
-                                <option class="select-option" value="saint-benoît">saint-benoît</option>
-                                <option class="select-option" value="saint-denis">saint-denis</option>
-                                <option class="select-option" value="saint-joseph">saint-joseph</option>
-                                <option class="select-option" value="saint-leu">saint-leu</option>
-                                <option class="select-option" value="saint-paul">saint-paul</option>
-                                <option class="select-option" value="saint-pierre">saint-pierre</option>
-                                <option class="select-option" value="saint-philippe">saint-philippe</option>
-                                <option class="select-option" value="sainte-marie">sainte-marie</option>
-                                <option class="select-option" value="saint-rose">saint-rose</option>
-                                <option class="select-option" value="saint-suzanne">saint-suzanne</option>
-                                <option class="select-option" value="salazie">salazie</option>
-                                <option class="select-option" value="le tampon">le tampon</option>
-                                <option class="select-option" value="les trois bassins">les trois bassins</option>
-                                <option class="select-option" value="cilaos">cilaos</option>
+                              <select <%=question.required? 'required' :''%> class="question-select" name="
+                                <%=question._id%>">
+                                  <option class="select-option" value="">Séléctionner une section</option>
+
+                                  <option class="select-option" value="artisanat">artisanat</option>
+                                  <option class="select-option" value="commerce">commerce</option>
+                                  <option class="select-option" value="industrie">industrie</option>
+                                  <option class="select-option" value="services">services</option>
                               </select>
                               <% } %>
-                                <% if (question.required) { %>
-                                  <div class="question-required">
-                                    <div class="required-checkbox required-selected">
-                                      <div class="required-clippath"></div>
-                                    </div>
-                                    <div class="required-label">Obligatoire</div>
-                                  </div>
+                                <% if (question.type==='secteur' ) { %>
+                                  <select <%=question.required? 'required' :''%> name="<%=question._id%>"
+                                      class="question-select">
+                                      <option class="select-option" value="">Séléctionner une ville</option>
+
+                                      <option class="select-option" value="les avirons">les avirons</option>
+                                      <option class="select-option" value="bras-panon">bras-panon</option>
+                                      <option class="select-option" value="entre-deux">entre-deux</option>
+                                      <option class="select-option" value="etang-sale">etang-sale</option>
+                                      <option class="select-option" value="petite-ile">petite-ile</option>
+                                      <option class="select-option" value="plaine des palmistes">plaine des palmistes
+                                      </option>
+                                      <option class="select-option" value="le port">le port</option>
+                                      <option class="select-option" value="la possession">la possession</option>
+                                      <option class="select-option" value="saint-andre">saint-andre</option>
+                                      <option class="select-option" value="saint-benoit">saint-benoit</option>
+                                      <option class="select-option" value="saint-benoît">saint-benoît</option>
+                                      <option class="select-option" value="saint-denis">saint-denis</option>
+                                      <option class="select-option" value="saint-joseph">saint-joseph</option>
+                                      <option class="select-option" value="saint-leu">saint-leu</option>
+                                      <option class="select-option" value="saint-paul">saint-paul</option>
+                                      <option class="select-option" value="saint-pierre">saint-pierre</option>
+                                      <option class="select-option" value="saint-philippe">saint-philippe</option>
+                                      <option class="select-option" value="sainte-marie">sainte-marie</option>
+                                      <option class="select-option" value="saint-rose">saint-rose</option>
+                                      <option class="select-option" value="saint-suzanne">saint-suzanne</option>
+                                      <option class="select-option" value="salazie">salazie</option>
+                                      <option class="select-option" value="le tampon">le tampon</option>
+                                      <option class="select-option" value="les trois bassins">les trois bassins</option>
+                                      <option class="select-option" value="cilaos">cilaos</option>
+                                  </select>
                                   <% } %>
+                                    <% if (question.required) { %>
+                                      <div class="question-required">
+                                        <div class="required-checkbox required-selected">
+                                          <div class="required-clippath"></div>
+                                        </div>
+                                        <div class="required-label">Obligatoire</div>
+                                      </div>
+                                      <% } %>
           </div>
           <% }) %>
             <input type="submit" class="cta" value="Confirmer ma réponse" />

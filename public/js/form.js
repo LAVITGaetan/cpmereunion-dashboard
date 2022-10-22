@@ -152,6 +152,7 @@ function generateQuestion(label, type, order, id) {
     createDelete(id);
     createDown(id);
     createUp(id);
+    createOld(id);
 }
 
 // Create components
@@ -358,6 +359,15 @@ function createUp(id) {
     container.getElementsByClassName('slide-up')[0].appendChild(newImg)
 }
 
+function createOld(id) {
+    let container = document.getElementById(`js-container${id}`);
+    let newOld = document.createElement('INPUT');
+    newOld.setAttribute('type', 'hidden');
+    newOld.setAttribute('class', 'old');
+    newOld.setAttribute('name', `old_${formArray.length - 1}`);
+    newOld.setAttribute('value', 'false');
+    container.appendChild(newOld);
+}
 
 function createDown(id) {
     let container = document.getElementById(`js-container${id}`);
@@ -415,21 +425,7 @@ function destroyInput(id) {
         updateQuestionCount();
         updateQuestionOrder();
 
-                        //Reset inputs
-                        let i = 0;
-                        formArray.forEach(el => {
-                            let newOrder = el.order - 1;
-                            const question = document.getElementsByClassName('editor-question')[`${i}`];
-                            let label = question.getElementsByClassName('question-label')[0]
-                            let description = question.getElementsByClassName('question-sub')[0]
-                            let type = question.getElementsByClassName('question-type')[0]
-                            let required = question.getElementsByClassName('required-checkbox')[0]
-                            label.setAttribute('name', `label_${newOrder}`);
-                            description.setAttribute('name', `description_${newOrder}`);
-                            type.setAttribute('name', `type_${newOrder}`);
-                            required.setAttribute('name', `required_${newOrder}`);
-                            i++
-                        })
+        resetInputs()
     }
 }
 
@@ -478,28 +474,10 @@ function slideUp(id) {
         domItem.getElementsByClassName('question-counter')[0].innerHTML = newOrder;
         domPreviousItem.getElementsByClassName('question-counter')[0].innerHTML = item.order;
         document.getElementById(`js-container${id}`)
-
         //Array logic
         previousItem.order = item.order;
         item.order = newOrder;
-
-        //Reset inputs
-        let i = 0;
-        formArray.forEach(el => {
-            let newOrder = el.order - 1;
-            const question = document.getElementsByClassName('editor-question')[`${i}`];
-            let label = question.getElementsByClassName('question-label')[0]
-            let description = question.getElementsByClassName('question-sub')[0]
-            let type = question.getElementsByClassName('question-type')[0]
-            let required = question.getElementsByClassName('required-checkbox')[0]
-            label.setAttribute('name', `label_${newOrder}`);
-            description.setAttribute('name', `description_${newOrder}`);
-            type.setAttribute('name', `type_${newOrder}`);
-            required.setAttribute('name', `required_${newOrder}`);
-            i++
-        })
-
-
+        resetInputs()
     }
 }
 
@@ -522,21 +500,7 @@ function slideDown(id) {
         //Array logic
         previousItem.order = item.order;
         item.order = newOrder;
-                //Reset inputs
-                let i = 0;
-                formArray.forEach(el => {
-                    let newOrder = el.order - 1;
-                    const question = document.getElementsByClassName('editor-question')[`${i}`];
-                    let label = question.getElementsByClassName('question-label')[0]
-                    let description = question.getElementsByClassName('question-sub')[0]
-                    let type = question.getElementsByClassName('question-type')[0]
-                    let required = question.getElementsByClassName('required-checkbox')[0]
-                    label.setAttribute('name', `label_${newOrder}`);
-                    description.setAttribute('name', `description_${newOrder}`);
-                    type.setAttribute('name', `type_${newOrder}`);
-                    required.setAttribute('name', `required_${newOrder}`);
-                    i++
-                })
+        resetInputs()
     }
 }
 
@@ -625,26 +589,30 @@ function fillArray(form_id) {
     let questions = document.getElementsByClassName('editor-question');
     formArray = [];
     for (let i = 0; i < questions.length; i++) {
-        let label = questions[i].getAttribute('data-label');
-        let required = questions[i].getAttribute('data-required');
-        let set = questions[i].getAttribute('data-description');
-        let content = questions[i].getAttribute('data-content');
-        let type = questions[i].getAttribute('data-type');
-        let id = questions[i].getAttribute('data-id');
         formArray.push({
             id: i + 1,
-            _id: id,
-            label: label,
-            required: required,
-            description: {
-                set: set,
-                content: content
-            },
-            type: type,
             order: i + 1,
             form_id: form_id,
-            old: 'old'
         })
 
     }
-}        
+}
+
+function resetInputs() {
+    let i = 0;
+    formArray.forEach(el => {
+        let newOrder = el.order - 1;
+        const question = document.getElementsByClassName('editor-question')[`${i}`];
+        let label = question.getElementsByClassName('question-label')[0]
+        let description = question.getElementsByClassName('question-sub')[0]
+        let type = question.getElementsByClassName('question-type')[0]
+        let required = question.getElementsByClassName('required-checkbox')[0]
+        let old = question.getElementsByClassName('old')[0]
+        label.setAttribute('name', `label_${newOrder}`);
+        description.setAttribute('name', `description_${newOrder}`);
+        type.setAttribute('name', `type_${newOrder}`);
+        required.setAttribute('name', `required_${newOrder}`);
+        old.setAttribute('name', `old_${newOrder}`);
+        i++
+    })
+}

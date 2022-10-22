@@ -41,7 +41,7 @@ exports.editMandataire = (req, res) => {
         path = req.file.path.substring(7);
     }
     else {
-        path = '';
+        path = req.body.path;
     }
     let payload = {
         nom: req.body.nom,

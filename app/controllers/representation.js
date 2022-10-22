@@ -18,7 +18,7 @@ exports.addRepresentation = (req, res) => {
     })
         .then((response) => {
             req.flash('message', `Representation ajoutée`);
-            if(req.params.ressource === 'mandats') {
+            if (req.params.ressource === 'mandats') {
                 res.redirect(`/profil-mandat?id=${req.body.id_mandat}`)
             }
             else {
@@ -45,7 +45,7 @@ exports.editRepresentation = (req, res) => {
     })
         .then((response) => {
             req.flash('message', `Représentation modifiée`);
-            if(req.params.ressource === 'mandats') {
+            if (req.params.ressource === 'mandats') {
                 res.redirect(`/profil-mandat?id=${req.body.id_mandat}`)
             }
             else {
@@ -67,7 +67,7 @@ exports.deleteRepresentation = (req, res) => {
     })
         .then((response) => {
             req.flash('message', `Représentation supprimée`);
-            if(req.params.ressource === 'mandats') {
+            if (req.params.ressource === 'mandats') {
                 res.redirect(`/profil-mandat?id=${req.params.id_mandat}`)
             }
             else {
