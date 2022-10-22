@@ -15,7 +15,7 @@
                     <%= reponses.length %>
                 </div>
                 <div class="container-row scrollbar"><span class="row-label">Parution</span>
-                    <%= sondage.parution %>
+                    <%= sondage.parution === 'true'? 'Activée': 'Désactivée' %>
                 </div>
                 <div class="flex">
                     <div class="container-action"><a href="/edit-sondage?id=<%= sondage._id %>"
